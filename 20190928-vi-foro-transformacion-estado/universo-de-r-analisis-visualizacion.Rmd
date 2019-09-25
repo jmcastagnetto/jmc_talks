@@ -1,5 +1,5 @@
 ---
-title: 'El Universo de "**R**"'
+title: 'El Universo de "**`R`**"'
 subtitle: "Análisis y Visualización de datos"
 author: "Jesús M. Castagnetto M., Ph.D."
 date:  "VI Foro de Transformación del Estado<br/>UTEC, Lima, 2019/09/26"
@@ -14,6 +14,7 @@ output:
     progress: true
     fragments: true
     incremental: true
+    toc: true
     center: true
     includes:
       before_body: before-body.html
@@ -50,7 +51,7 @@ font_add("Inconsolata", regular = "Inconsolata for Powerline.otf")
 
 # &nbsp; {data-background-iframe="https://www.r-project.org"}
 
-## **R**
+## **`R`**
 
 - Inspirado en **S** (John Chambers, Bell Labs, 1978)
 - Creado en 1991 por Ross Ihaka y Robert Gentleman (Universidad de Auckland, Nueva Zelandia)
@@ -60,7 +61,7 @@ font_add("Inconsolata", regular = "Inconsolata for Powerline.otf")
 - Es un proyecto de Código Abierto/Libre (FLOSS)
 - Una serie de comunidades y proyectos: Bioinformática (Bioconductor), GIS (Rgeo), Finanzas y Economía (Rmetrics), Visualización de datos, etc.
 
-## Uso de **R** en el mundo 
+## Uso de **`R`** en el mundo 
 
 - **Compañías**: Google, Facebook, Microsoft, Twitter, AirBnB, IBM, Uber, AWS, HP, Novartis, Ford, etc.
 
@@ -72,7 +73,7 @@ font_add("Inconsolata", regular = "Inconsolata for Powerline.otf")
 
 - **Otros**: Gartner, AC Nielsen, Deloitte Consulting, Accenture, PricewaterhouseCoopers, Target, etc.
 
-## Qué ofrece **R**
+## Qué ofrece **`R`**
 
 - Un lenguaje adecuado a los cálculos estadísticos
 - Una multitud de librerías que permiten calcular, modelar, etc. y trabajar con datos pequeños o grandes
@@ -87,7 +88,7 @@ font_add("Inconsolata", regular = "Inconsolata for Powerline.otf")
 
 ## Exploración de datos
 
-El ciclo de análisis: importar datos, limpiarlos, transformarlos, visualizarlos, modelarlos, y al final, comunicar los hallazgos
+*El ciclo de análisis y exploración*: Importar datos, limpiarlos/corregirlos, transformarlos, visualizarlos, modelarlos, y, al final, comunicar los hallazgos.
 
 ![Exploración en Ciencia de Datos](assets/data-science-explore.png)
 
@@ -101,15 +102,15 @@ Referencia: ["R for Data Science"](https://r4ds.had.co.nz/explore-intro.html), G
 - Es reproducible a nivel de métodos y resultados, y hasta de inferencias.
 - Se puede poner en un sistema de control de versiones, y así ver como evolucionó y se modificó en el tiempo.
 
-# Ejemplos de uso de **R**
+# Ejemplos de uso de **`R`**
 
 ## Analizar la distribución de notas de un exámen
 
 - Consideremos las notas de un exámen para un grupo de alumnos.
-- Vamos a usar **R** para simular las notas
+- Vamos a usar **`R`** para simular las notas
 - Luego calcularemos estadísticas básicas de estos datos
 - Después, graficaremos la distribución de las notas
-- Finalmente, usaremos operaciones simples en **R** para corregir un error en las notas.
+- Finalmente, usaremos operaciones simples en **`R`** para corregir un error en las notas.
 
 ## Simular las notas
 
@@ -451,7 +452,7 @@ ggplot(df_alluvial, aes(x = periodo, y = value, stratum = agrupacion,
 
 - Obtener los archivos PDF con el texto de las Constituciones (del sitio del Congreso de la República)
 - Convertir de PDF a texto (usando `pdftotext`)
-- Procesar el texto con **R**
+- Procesar el texto con **`R`**
 - Graficar un "Nube de palabras" con los términos mas usados
 - Crear una animación de los 10 términos mas frecuentes, desde el texto de 1812 al 1993.
 
@@ -624,7 +625,7 @@ pe_flights %>%
 
 # Material de referencia
 
-## Libros y otros
+## Libros, tutoriales y misc.
 
 - ["Education @RStudio"](https://education.rstudio.com/)
 - [Data Organization in Spreadsheets](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375989#.XYlLQOZKiPQ), K. W. Broman y K. H. Woo, *The American Statistician*.
@@ -633,7 +634,7 @@ pe_flights %>%
 - [R for Data Science (R4DS)](https://r4ds.had.co.nz), G. Grolemund y H. Wickham
   - [Versión en Español](https://es.r4ds.hadley.nz/)
 - [Awesome R](https://awesome-r.com): https://github.com/qinwf
-- ["awesome-r @github"](https://github.com/uhub/awesome-r)
+- ["awesome-r @github"](https://github.com/uhub/awesome-r): Repositorios con código y paquetes para R.
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday): Datos y ejemplos de visualizaciones
 
 ## Gracias por escucharme 

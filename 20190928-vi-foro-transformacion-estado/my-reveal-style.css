@@ -34,3 +34,7 @@ div.my-header {
   font-size: 1em;
   color: white;
 }
+
+.reveal section img {
+  border: 0px;
+}

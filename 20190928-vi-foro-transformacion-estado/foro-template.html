@@ -312,12 +312,12 @@ $endif$
 		font-size: 0.8em;
 	}
 
-}  
+}
 </script>
 
 
 <script id="pdf-css" type="application/dynamic-css">
-    
+
 /**
  * This stylesheet is used to print reveal.js
  * presentations to PDF.
@@ -513,6 +513,7 @@ $endfor$
 $if(date)$
     <h3 class="date">$date$</h3>
 $endif$
+<div style="margin-bottom: 20px;"><img src="assets/logos-utec-cpd.png"/></div>
 </section>
 $endif$
 $if(toc)$
@@ -666,28 +667,28 @@ $if(plugin-menu)$
         menu: {
 $if(menu-side)$
           side: $menu-side$,
-$endif$   
+$endif$
 $if(menu-numbers)$
           numbers: $menu-numbers$,
-$endif$    
+$endif$
 $if(menu-titleSelector)$
           titleSelector: $menu-titleSelector$,
-$endif$    
+$endif$
 $if(menu-hideMissingTitles)$
           hideMissingTitles: $menu-hideMissingTitles$,
-$endif$    
+$endif$
 $if(menu-markers)$
           markers: $menu-markers$,
-$endif$    
+$endif$
 $if(menu-openButton)$
           openButton: $menu-openButton$,
-$endif$    
+$endif$
 $if(menu-openSlideNumber)$
           openSlideNumber: $menu-openSlideNumber$,
-$endif$    
+$endif$
 $if(menu-keyboard)$
           keyboard: $menu-keyboard$,
-$endif$ 
+$endif$
           custom: false,
           themes: false,
           transitions: false
@@ -771,7 +772,7 @@ $endif$
 <script>
   (function() {
     if (window.jQuery) {
-      Reveal.addEventListener( 'slidechanged', function(event) {  
+      Reveal.addEventListener( 'slidechanged', function(event) {
         window.jQuery(event.previousSlide).trigger('hidden');
         window.jQuery(event.currentSlide).trigger('shown');
       });
