@@ -637,7 +637,7 @@ pe_flights %>%
 - ["awesome-r @github"](https://github.com/uhub/awesome-r): Repositorios con código y paquetes para R.
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday): Datos y ejemplos de visualizaciones
 
-## Gracias por escucharme 
+## Gracias por escucha**`R`**me 
 
 - URL de esta presentación:
   - https://castagnetto.site/talks/foro/universo-de-r-analisis-visualizacion.html
