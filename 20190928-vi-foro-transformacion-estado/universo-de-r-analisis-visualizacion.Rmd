@@ -453,7 +453,7 @@ ggplot(df_alluvial, aes(x = periodo, y = value, stratum = agrupacion,
 - Obtener los archivos PDF con el texto de las Constituciones (del sitio del Congreso de la República)
 - Convertir de PDF a texto (usando `pdftotext`)
 - Procesar el texto con **`R`**
-- Graficar un "Nube de palabras" con los términos mas usados
+- Graficar un par de "Nube de palabras" con los términos mas usados (1812 vs 1993)
 - Crear una animación de los 10 términos mas frecuentes, desde el texto de 1812 al 1993.
 
 ## Función para extraer y clasificar los textos
@@ -511,7 +511,7 @@ ggplot(c_1812, aes(label = word, size = freq,
   scale_size_area(max_size = 32) +
   scale_fill_manual(values = randomColor(100, hue = "red")) +
   labs(
-    title = "Nubes de palabras de la Constitución del Perú",
+    title = "Nube de palabras de la Constitución del Perú",
     subtitle = "Año: 1812. Fuente: Congreso de la República del Perú.",
     caption = "Tomando los 100 términos mas frecuentes en cada documento\n@jmcastagnetto (Jesus M. Castagnetto)"
   ) +
@@ -531,7 +531,7 @@ ggplot(c_1993, aes(label = word, size = freq,
   scale_size_area(max_size = 32) +
   scale_fill_manual(values = randomColor(100, hue = "blue")) +
   labs(
-    title = "Nubes de palabras de la Constitución del Perú",
+    title = "Nube de palabras de la Constitución del Perú",
     subtitle = "Año: 1993. Fuente: Congreso de la República del Perú.",
     caption = "Tomando los 100 términos mas frecuentes en cada dinstall.packages("randomcoloR")ocumento\n@jmcastagnetto (Jesus M. Castagnetto)"
   ) +
