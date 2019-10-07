@@ -2,6 +2,8 @@ Aqui se encuentra el código y los datos de la presentación que he dado
 el 28 de setiembre del 2019, dentro del "VI Foro de Transformación del Estado"
 en el local de UTEC.
 
+La charla está en línea en: https://castagnetto.site/talks/foro/universo-de-r-analisis-visualizacion.html#/
+
 Los datos he usado las siguientes fuentes:
 
 - Composición de los partidos/bancadas en el Congreso de la República:
