@@ -1,0 +1,40 @@
+div.my-header {
+  background-color: peru;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 30px;
+  width: 100%;
+  padding-top: 5px;
+  padding-right: 60px;
+  text-align: right;
+  font-family: Inconsolata, Courier, fixed;
+  font-size: 14pt;
+  color: white;
+}
+
+.reveal h1.title {
+  padding-top: 1.5em;
+  color: white;
+}
+
+.reveal h1.subtitle {
+  font-size: 1.5em !important;
+  font-style: italic;
+  color: white;
+}
+
+.reveal h2.author {
+  padding-top: 1.5em;
+  font-size: 1.2em;
+  color: white;
+}
+
+.reveal h3.date {
+  font-size: 1em;
+  color: white;
+}
+
+.reveal section img {
+  border: 0px;
+}

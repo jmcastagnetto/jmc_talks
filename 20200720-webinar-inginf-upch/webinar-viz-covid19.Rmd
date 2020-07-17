@@ -1,0 +1,242 @@
+---
+title: 'Ciencia de Datos y Visualización'
+subtitle: "Herramientas para entender el COVID-19"
+author: "Jesús M. Castagnetto, Ph.D."
+date:  "Webinars de Ingeniería Informática (UPCH)<br/>Lima, 2020/07/20"
+output: 
+  revealjs::revealjs_presentation:
+    template: webinar-template.html
+    self_contained: false
+    theme: sky
+    highlight: espresso
+    transition: convex
+    progress: true
+    fragments: true
+    incremental: true
+    toc: true
+    center: true
+    includes:
+      before_body: before-body.html
+    reveal_options:
+      slideNumber: true
+      previewLinks: true
+    css: my-reveal-style.css
+---
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE
+)
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+
+library(tidyverse)
+library(echarts4r)
+library(echarts4r.assets)
+library(ggpol)
+library(ggalluvial)
+library(ggforce)
+library(showtext)
+library(tm)
+library(ggwordcloud)
+library(randomcoloR)
+library(tidyquant)
+
+#font_add("Elegante", regular = "elegbold.ttf")
+#font_add("Inconsolata", regular = "Inconsolata for Powerline.otf")
+
+ecdc <- readRDS("datos/2020-07-13_ecdc.rds")
+ejec_presup <- readRDS("datos/covid19-ejecucion-presupuestal/ejec-presup.rds")
+donaciones <- readRDS("datos/covid19-donaciones/donaciones.rds")
+dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
+```
+
+# Datos
+
+## Usamos datos para:
+
+- Responder una pregunta concreta
+- Contar una historia
+- Explorar relaciones entre variables
+- Descubrir patrones
+- Tomar decisiones
+- Automatizar procesos
+- Validar observaciones y experimentos
+
+
+## Datos masivos ("Big Data")
+
+- Retos en el manejo de cantidades ingentes de datos
+- Características:
+	- Volúmen (cantidad de datos generados y/o almacenados)
+	- Velocidad (frecuencia con que renuevan/aparecen)
+	- Variedad (multiplicidad de fuentes y formatos)
+	- Variabilidad (inconsistencias o cambios en el tiempo)
+	- Veracidad (calidad de los datos)
+
+## Datos masivos: LHC
+
+- LHC (Large Hadron Collider)
+	- 150 millones de sensores, produciendo datos 40 millones de veces por segundo.
+	- Unas 600 millones de colisiones por segundo
+		- Se filtran un 99.99995% de estas, con unas 1000 colisiones de interés por segundo
+	- El volúmen anual es de 25 petabytes antes de replicación, y 200 petabytes después de replicar.
+	- Sin filtrar se excedería los **500 exabytes por día**.
+
+- *Como referencia*:
+  - 1 exabyte = 1,000 petabytes = 1'000,000 terabytes = 1,000'000,000 gigabytes
+
+## Datos masivos: Redes sociales
+
+- Facebook tiene mas de 50,000 millones de fotos, con mas de 2,000 millones de usuarios activos
+- En Twitter: en promedio unos 6,000 tweets por segundo (~ 500 millones al día)
+- Instagram: mas de 70 millones de fotos por día, mas de 800 millones de usuarios activos
+- YouTube: mas de 2,000 millones de usuarios, 500 horas de video subidas cada minuto (~720,000 horas al día = 82.2 años de videos por día)
+
+## Ciencia de datos
+
+- Un campo interdisciplinario que trata de extraer conocimiento o ideas nuevas de los datos.
+- Los datos pueden
+  - Provenir de múltiples fuentes
+  - Tener diversos niveles de calidad
+  - Ser completos o parciales
+  - Estar estructurados o no estructurados, etc.
+
+## Que se necesita conocer
+
+- Manipulación y limpieza de datos
+- Bases de datos estructuradas y no estructuradas
+- Estadística y matemáticas
+- Machine Learning
+- Programación de software
+  - Especialmente en lenguajes de análisis de datos (R, Python, etc.)
+  - Visualización de datos y comunicación
+
+## El camino de la Ciencia de Datos
+
+<small>
+*Fuente*: 
+http://nirvacana.com/thoughts/2013/07/08/becoming-a-data-scientist/
+</small>
+
+```{r out.height="60%"}
+knitr::include_graphics("assets/RoadToDataScientist1.png")
+```
+
+## Componentes 
+
+- Fuentes
+  - Estructuradas y no estructuradas
+  - Fijas, variables o periódicas
+- Recopilación
+  - Extracción e importación
+  - Limpieza de datos
+- Exploración
+  - Transformación de datos
+  - Visualización/Análisis Exploratorio de Datos
+  - Modelamiento
+- Mostrar resultados
+  - Reportes y visualizaciones (interactivas o no)
+  - Comparaciones, tendencias, etc.
+
+
+-----
+
+```{r out.height="60%"}
+knitr::include_graphics("assets/flujo-ciencia-de-datos.png")
+```
+
+
+# Visualización
+
+
+## Tufte 
+
+> "Graphical excellence consists of complex ideas communicated with clarity, precision and efficiency."
+>
+> (E. Tufte)
+
+
+
+# Ejemplos
+
+```{r}
+df <- ecdc %>%
+  filter(iso2c %in% c("PE", "US", "MX", "CO", "CL")) %>%
+  mutate(
+    cases_per1m = cases * 1E6 / pop2019,
+    deaths_per1m = deaths * 1E6 / pop2019,
+    cases_acc_per1m = cases_acc * 1E6 / pop2019,
+    deaths_acc_per1m = deaths_acc * 1E6 / pop2019
+  ) %>% 
+  filter(days_since_100cases > 0)
+
+ggplot(df, aes(x = days_since_100cases, y = cases_per1m,
+               group = country,
+               color = country)) +
+#  geom_point(size = .5) +
+#  geom_line() +
+  geom_ma(n = 14, linetype = "solid", size = 1,
+          show.legend = TRUE) +
+  theme_minimal() +
+  scale_color_brewer(palette = "Dark2", type = "qual") #+
+  #scale_y_log10(labels = scales::comma) +
+  #annotation_logticks(sides = "l")
+
+ggplot(df, aes(x = dateRep, y = deaths_per1m,
+               group = country,
+               color = country)) +
+  #geom_point(size = .5) +
+  geom_ma(n = 14, linetype = "solid", show.legend = TRUE) +
+  #scale_y_log10(labels = scales::comma) +
+  #annotation_logticks(sides = "l") +
+  scale_color_brewer(palette = "Dark2", type = "qual")
+
+```
+
+```{r}
+# ejecución presupuestal
+reg <- ejec_presup %>%
+  filter(tipo_gobierno == "R")
+reg_sum <- reg %>%
+  filter(mes_eje != 0) %>%
+  group_by(departamento_ejecutora_nombre, mes) %>%
+  summarise(
+   # pia = sum(monto_pia, na.rm = T),
+   # pim = sum(monto_pim, na.rm = T),
+    certificado = sum(monto_certificado, na.rm = T),
+    comprometido = sum(monto_comprometido, na.rm = T),
+    devengado = sum(monto_devengado, na.rm = T),
+    girado = sum(monto_girado, na.rm = T)
+  )
+```
+
+
+# Material de referencia
+
+## Libros, tutoriales y misc.
+
+- ["Education @RStudio"](https://education.rstudio.com/)
+- [Data Organization in Spreadsheets](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375989#.XYlLQOZKiPQ), K. W. Broman y K. H. Woo, *The American Statistician*.
+- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/), C. O. Wilke
+- [Data Visualization with R](https://rkabacoff.github.io/datavis/), R. Kabacoff
+- [R for Data Science (R4DS)](https://r4ds.had.co.nz), G. Grolemund y H. Wickham
+  - [Versión en Español](https://es.r4ds.hadley.nz/)
+- [Awesome R](https://awesome-r.com): https://github.com/qinwf
+- ["awesome-r @github"](https://github.com/uhub/awesome-r): Repositorios con código y paquetes para R.
+- [TidyTuesday](https://github.com/rfordatascience/tidytuesday): Datos y ejemplos de visualizaciones
+
+## Gracias por escucha**`R`**me 
+
+- URL de esta presentación:
+  - https://castagnetto.site/talks/upch/webinapr-viz-covid19.html
+
+- Código y datos de esta presentación:
+  - https://github.com/jmcastagnetto/jmc_talks/tree/master/20200720-webinar-inginf-upch/
+
+- Contacto:
+  - Twitter: @jmcastagnetto
+  - Email: jesus@castagnetto.com
