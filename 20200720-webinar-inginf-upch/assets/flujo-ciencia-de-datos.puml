@@ -1,7 +1,7 @@
 @startuml
 
 title Flujo de análisis en Ciencia de Datos
-caption 2020-07-14
+caption 2020-07-14, Jesus M. Castagnetto
 
 skinparam packageStyle rectangle
 skinparam packageBackgrounColor Cyan

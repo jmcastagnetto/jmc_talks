@@ -6,8 +6,9 @@ date:  "Webinars de Ingeniería Informática (UPCH)<br/>Lima, 2020/07/20"
 output: 
   revealjs::revealjs_presentation:
     template: webinar-template.html
-    self_contained: false
-    theme: sky
+    self_contained: true
+    smart: true
+    theme: night
     highlight: espresso
     transition: convex
     progress: true
@@ -22,6 +23,7 @@ output:
       previewLinks: true
     css: my-reveal-style.css
 ---
+
 ```{r setup, include=FALSE}
 options(
   htmltools.dir.version = FALSE
@@ -34,6 +36,7 @@ knitr::opts_chunk$set(
 )
 
 library(tidyverse)
+library(patchwork)
 library(echarts4r)
 library(echarts4r.assets)
 library(ggpol)
@@ -44,6 +47,9 @@ library(tm)
 library(ggwordcloud)
 library(randomcoloR)
 library(tidyquant)
+library(ggpmisc)
+library(latex2exp)
+
 
 #font_add("Elegante", regular = "elegbold.ttf")
 #font_add("Inconsolata", regular = "Inconsolata for Powerline.otf")
@@ -58,13 +64,13 @@ dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
 
 ## Usamos datos para:
 
-- Responder una pregunta concreta
-- Contar una historia
+- Responder preguntas concretas
 - Explorar relaciones entre variables
 - Descubrir patrones
 - Tomar decisiones
 - Automatizar procesos
 - Validar observaciones y experimentos
+- Contar una historia
 
 
 ## Datos masivos ("Big Data")
@@ -80,14 +86,14 @@ dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
 ## Datos masivos: LHC
 
 - LHC (Large Hadron Collider)
-	- 150 millones de sensores, produciendo datos 40 millones de veces por segundo.
-	- Unas 600 millones de colisiones por segundo
-		- Se filtran un 99.99995% de estas, con unas 1000 colisiones de interés por segundo
+	- 150 millones de sensores, generando datos 40 millones de veces por segundo.
+	- 600 millones de colisiones por segundo
+		- Se filtra ~99.99995% ⇒ se graban sólo 1,000 colisiones de interés por segundo
 	- El volúmen anual es de 25 petabytes antes de replicación, y 200 petabytes después de replicar.
 	- Sin filtrar se excedería los **500 exabytes por día**.
 
 - *Como referencia*:
-  - 1 exabyte = 1,000 petabytes = 1'000,000 terabytes = 1,000'000,000 gigabytes
+  - 1 exabyte = 1,000 petabytes = 1'000,000 terabytes = 1,000'000,000 gigabytes = $10^{18}$ bytes
 
 ## Datos masivos: Redes sociales
 
@@ -112,7 +118,7 @@ dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
 - Estadística y matemáticas
 - Machine Learning
 - Programación de software
-  - Especialmente en lenguajes de análisis de datos (R, Python, etc.)
+  - Especialmente en lenguajes de análisis de datos (R, Python, Julia, etc.)
   - Visualización de datos y comunicación
 
 ## El camino de la Ciencia de Datos
@@ -122,7 +128,7 @@ dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
 http://nirvacana.com/thoughts/2013/07/08/becoming-a-data-scientist/
 </small>
 
-```{r out.height="60%"}
+```{r out.width="70%"}
 knitr::include_graphics("assets/RoadToDataScientist1.png")
 ```
 
@@ -145,7 +151,7 @@ knitr::include_graphics("assets/RoadToDataScientist1.png")
 
 -----
 
-```{r out.height="60%"}
+```{r out.width="80%"}
 knitr::include_graphics("assets/flujo-ciencia-de-datos.png")
 ```
 
@@ -153,13 +159,143 @@ knitr::include_graphics("assets/flujo-ciencia-de-datos.png")
 # Visualización
 
 
-## Tufte 
+-----
 
 > "Graphical excellence consists of complex ideas communicated with clarity, precision and efficiency."
 >
 > (E. Tufte)
 
+## El "Cuarteto de Anscombe"
 
+```{r}
+# aes para dibujar las ecuaciones en los gráficos
+# fm_aes <- aes(label =  paste(stat(eq.label), "*\", con: \"*",
+#                              stat(adj.rr.label), "*\", \"*",
+#                              stat(p.value.label), "*\"\"",
+#                              sep = ""))
+
+fm_aes <- aes(label =  paste(stat(eq.label), "*\", con: \"*",
+                             stat(adj.rr.label), "*\"\"",
+                             sep = ""))
+
+
+a1 <- anscombe[,c(1,5)] %>% as_tibble()
+a2 <- anscombe[,c(2,6)] %>% as_tibble()
+a3 <- anscombe[,c(3,7)] %>% as_tibble()
+a4 <- anscombe[,c(4,8)] %>% as_tibble()
+```
+
+<div class="fragment fade-left" data-fragment="1">
+
+```{r}
+knitr::kable(t(a1), caption = "Grupo #1", digits = 2)
+```
+
+</div>
+<div class="fragment fade-left" data-fragment="2">
+
+```{r}
+knitr::kable(t(a2), caption = "Grupo #2", digits = 2)
+```
+
+</div>
+<div class="fragment fade-left" data-fragment="3">
+
+```{r}
+knitr::kable(t(a3), caption = "Grupo #3", digits = 2)
+```
+
+</div>
+<div class="fragment fade-left" data-fragment="4">
+
+```{r}
+knitr::kable(t(a4), caption = "Grupo #4", digits = 2)
+```
+
+</div>
+
+## Las tendencias son engañosas
+
+```{r out.height="80%"}
+theme_set(theme_classic())
+p1 <- ggplot(a1, aes(x = x1, y = y1)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #1")
+
+p2 <- ggplot(a2, aes(x = x2, y = y2)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #2") 
+
+p3 <- ggplot(a3, aes(x = x3, y = y3)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #3") 
+
+p4 <- ggplot(a4, aes(x = x4, y = y4)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #4") 
+
+(p1 + p2) / (p3 + p4)
+```
+
+## Mostrar los datos es importante
+
+
+```{r out.height="80%"}
+p1 <- ggplot(a1, aes(x = x1, y = y1)) +
+  geom_point(size = 2, alpha = .5) +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #1") 
+
+p2 <- ggplot(a2, aes(x = x2, y = y2)) +
+  geom_point(size = 2, alpha = .5) +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #2")
+
+p3 <- ggplot(a3, aes(x = x3, y = y3)) +
+  geom_point(size = 2, alpha = .5) +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #3") 
+
+p4 <- ggplot(a4, aes(x = x4, y = y4)) +
+  geom_point(size = 2, alpha = .5) +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #4") 
+
+
+(p1 + p2) / (p3 + p4)
+
+```
+
+## No abusemos de la regresión lineal
+
+
+![xkcd - Linear Regression, comic 1725](assets/xckd-1725-linear_regression.png)
+
+*Fuente*: https://xkcd.com/1725/ ("Linear regression")
 
 # Ejemplos
 
