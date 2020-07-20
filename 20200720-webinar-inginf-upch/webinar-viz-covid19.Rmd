@@ -896,10 +896,30 @@ ggplot(epp_df,
 - [Data Visualization with R](https://rkabacoff.github.io/datavis/), R. Kabacoff
 - [Data Visualization - A practical introduction](https://socviz.co/), K. Healy
 - [The Data Visualization Catalogue](https://datavizcatalogue.com/)
+- [TidyTuesday](https://github.com/rfordatascience/tidytuesday): Datos y ejemplos de visualizaciones
+- [Datos de Miércoles](https://github.com/cienciadedatos/datos-de-miercoles): Datos y ejemplos de visualizaciones del grupo de R en español
+- [Dataviz Books Everyone Should Read](https://informationisbeautiful.net/visualizations/dataviz-books/)
+
+## Para aprender R
+
+- [Libros sobre R](https://www.r-project.org/doc/bib/R-books.html)
+- [Awesome R](https://github.com/qinwf)
+- ["awesome-r @github"](https://github.com/uhub/awesome-r): Repositorios con código y paquetes para R.
+- La comunidad de [R for Data Science](https://www.rfordatasci.com/)
+- [Education @RStudio](https://education.rstudio.com/)
+- [The R Journal](https://journal.r-project.org/)
+- [Data Science Foundations with R](https://www.coursera.org/specializations/data-science-foundations-r)
 - [R for Data Science (R4DS)](https://r4ds.had.co.nz), G. Grolemund y H. Wickham
   - [Versión en Español](https://es.r4ds.hadley.nz/)
-- [TidyTuesday](https://github.com/rfordatascience/tidytuesday): Datos y ejemplos de visualizaciones
-- [Dataviz Books Everyone Should Read](https://informationisbeautiful.net/visualizations/dataviz-books/)
+- [An R Introduction to Statistics](http://www.r-tutor.com/)
+
+## Para aprender Python y Julia
+
+- [Beginner's Guide to Python](https://wiki.python.org/moin/BeginnersGuide)
+- Cursos de Python (y otros) en: https://www.freecodecamp.org/learn/
+- [Python for Everybody](https://www.coursera.org/specializations/python)
+- [Julia - Learning Resources](https://julialang.org/learning/)
+- [Julia Scientific Programming](https://www.coursera.org/learn/julia-programming)
 
 
 ## Gracias 
