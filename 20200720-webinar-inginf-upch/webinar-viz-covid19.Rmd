@@ -18,7 +18,7 @@ output:
     center: true
     includes:
       before_body: before-body.html
-    reveal_plugins: ["menu", "chalkboard"]
+    reveal_plugins: ["menu"]
     reveal_options:
       slideNumber: true
       previewLinks: true
@@ -55,6 +55,7 @@ ecdc <- readRDS("datos/2020-07-13_ecdc.rds") %>%
   filter(cases >= 0 & deaths >= 0)
 ejec_presup <- readRDS("datos/covid19-ejecucion-presupuestal/ejec-presup.rds")
 dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
+theme_set(theme_classic(14))
 ```
 
 # Datos
@@ -74,7 +75,7 @@ dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
 
 - Retos en el manejo de cantidades ingentes de datos
 - Características:
-	- Volúmen (cantidad de datos generados y/o almacenados)
+	- Volumen (cantidad de datos generados y/o almacenados)
 	- Velocidad (frecuencia con que renuevan/aparecen)
 	- Variedad (multiplicidad de fuentes y formatos)
 	- Variabilidad (inconsistencias o cambios en el tiempo)
@@ -119,7 +120,7 @@ dist_epp <- readRDS("datos/covid19-dist-epp/dist-epp.rds")
 
 ## Qué se necesita conocer
 
-- Manipulación y limpieza de datos
+- Manipulación, limpieza y transformación de datos
 - Bases de datos estructuradas y no estructuradas
 - Estadística y matemáticas
 - Aprendizaje de máquina (Machine Learning)
@@ -168,7 +169,7 @@ knitr::include_graphics("assets/flujo-ciencia-de-datos.png")
 - Datos sobre:
   - Longitud y ancho del pico (en mm)
   - Longitud de la aleta (en mm)
-  - Peso corposral (en gr)
+  - Peso corporal (en gr)
   - Sexo (female, male)
   - También: Isla y año del registro
 
@@ -277,7 +278,7 @@ ggplot(penguins_test,
 
 ## Características de una visualización
 
-- Mapear datos a aspectos de un gráfico:
+- Mapear datos a los aspectos de un gráfico:
   - Posición, forma, tamaño, color, grosor y tipo de líneas
 
 ```{r}
@@ -376,7 +377,7 @@ knitr::include_graphics("assets/confidence-bands-1.png")
 
 ## Gráficos de sector circular ("pie charts")
 
-En general, no son recomendables, a menos que se tengan pocos valores, y un tabla es mas simple
+En general, no son recomendables, a menos que se tengan pocos valores, y una tabla es más simple
 
 
 <table style="border: none;">
@@ -468,7 +469,6 @@ knitr::kable(t(a4), caption = "Grupo #4", digits = 2)
 ## Las tendencias parecen ser iguales
 
 ```{r out.height="80%"}
-theme_set(theme_classic())
 p1 <- ggplot(a1, aes(x = x1, y = y1)) +
   stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
   stat_poly_eq(fm_aes,
@@ -580,7 +580,7 @@ knitr::include_graphics("assets/ugly-bad-wrong-examples-1.png")
 Fuente: http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/
 </small>
 
-## Y otro mas que no suma 100% 👎
+## Y otro más que no suma 100% 👎
 
 ![Mas de 100%](assets/Worst-Data-Visualizations-09.jpg)
 
@@ -696,7 +696,7 @@ ggplot(df2, aes(x = days_since_100cases,
     subtitle = "Fuente: ECDC, al 2020-07-13",
     caption = "Nota: No se muestran los datos del 2020-04-27 de Ecuador (664 casos por millón de habitantes)\nni del 2020-06-19 de Chile (1909 casos por millón de habitantes)"
   ) +
-  scale_color_viridis_d() +
+  scale_color_brewer(palette = "Dark2", type = "qual") +
   theme(
     legend.position = c(.2, .7)
   )
@@ -704,7 +704,7 @@ ggplot(df2, aes(x = days_since_100cases,
 
 ## Ejecución presupuestal
 
-```{r fig.width=12, fig.height=7}
+```{r fig.width=12, fig.height=8.2}
 # ejecución presupuestal
 reg <- ejec_presup %>%
   filter(tipo_gobierno == "R") %>% 
@@ -756,7 +756,7 @@ ggplot(reg_sum,
   facet_wrap(~dpto, nrow = 5)
 ```
 
-## Veamos en mas detalle a San Martín, La Libertad, Callao y Piura
+## Veamos en más detalle a San Martín, La Libertad, Callao y Piura
 
 ```{r}
 reg_sum2 <- reg_sum %>% 
@@ -781,9 +781,58 @@ ggplot(reg_sum2,
 
 ```
 
+## Exploremos el caso de San Martín
+
+```{r fig.width=14}
+reg_sum3 <- reg_sum %>% 
+  filter(dpto %in% c("SAN MARTIN"))
+
+p1 <- ggplot(reg_sum3,
+       aes(x = mes, y = monto/1e6,
+           fill = estado)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Ejecución del presupuesto COVID-19",
+    subtitle = "Fuente: MEF, Datos Abiertos (al 2020-07-14)",
+    x = "Mes",
+    y = "Monto (en millones de soles)",
+    fill = "Estado del monto: "
+  ) +
+  theme_linedraw(14) +
+  theme(
+    legend.position = "bottom"
+  )
+
+sm_cases <- read_csv(
+  "datos/covid-19-peru-data.csv"
+) %>% 
+  filter(
+    region == "San Martín"
+  ) %>% 
+  select(
+    date, confirmed
+  ) %>% 
+  mutate(
+    change = replace_na(confirmed - lag(confirmed), 0)
+  )
+
+p2 <- ggplot(sm_cases, aes(x = date, y = change)) +
+  geom_point(size = .5) +
+  geom_smooth(method = "gam") +
+  labs(
+    title = "Nuevos casos positivos por COVID-19 en San Martín",
+    subtitle = "Modelo usando GAM: y ~ s(x, bs = 'cs')",
+    x = "",
+    y = "Número de casos"
+  )
+
+p1 + p2
+
+```
+
 ## Equipo de protección personal COVID-19
 
-```{r}
+```{r fig.width=12}
 epp_df <- dist_epp %>% 
   select(fecha, tipo, cantidad) %>% 
   mutate(
@@ -832,10 +881,10 @@ ggplot(epp_df,
 # Para finalizar
 
 
-## En Resúmen
+## Resumen
 
-- Datos: es la base de todo, conseguirlos no siempre es fácil, y hay que tener cuidado con que fuentes se usan, y revisarlos por calidad, consistencia, etc.
-- Visualizar los datos: es crítico para poder entender el problema que tratamos de resolver, y para decidir si podemos o no hacer con la información a mano.
+- **Datos**: es la base de todo, conseguirlos no siempre es fácil, y hay que tener cuidado con qué fuentes se usan, y revisarlos por calidad, consistencia, etc.
+- **Visualizar los datos**: es crítico para poder entender el problema que tratamos de resolver, y para decidir si podemos o no hacerlo con la información a mano.
 - Hay que tener siempre presente lo que se quiere comunicar, y a que nivel de detalle.
 - La visualización no debería tener elementos que no contribuyen al mensaje.
 - Usen buenas herramientas para obtener buenos resultados.
