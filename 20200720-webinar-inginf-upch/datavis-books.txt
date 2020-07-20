@@ -1,0 +1,3 @@
+"Data Visualization - A pratical introduction", Kieran Healy (https://socviz.co/)
+
+"Fundamentals of Data Visualization", Claus O. Wilke (https://serialmentor.com/dataviz/)
