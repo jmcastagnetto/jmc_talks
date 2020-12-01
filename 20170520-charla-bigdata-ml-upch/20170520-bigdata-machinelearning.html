@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jesús M. Castagnetto, Ph.D." />
+  <title>¿Cómo usar, analizar y visualizar Big Data?</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="20170520-bigdata-machinelearning_files/reveal.js-3.3.0.1/css/reveal.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="20170520-bigdata-machinelearning_files/reveal.js-3.3.0.1/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="20170520-bigdata-machinelearning_files/header-attrs-2.5.3/header-attrs.js"></script>
+    <link href="20170520-bigdata-machinelearning_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="20170520-bigdata-machinelearning_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background-image="img/bigdata-main-bg.jpg">
+    <h1 class="title">¿Cómo usar, analizar y visualizar Big Data?</h1>
+    <h2 class="author" style="font-style: italic;">Jesús M. Castagnetto, Ph.D.</h2>
+    <h3 class="date">2017/05/20</h3>
+    <h4 style="float: right;">Universidad Peruana Cayetano Heredia</h4>
+</section>
+
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li class="fragment">Big Data</li>
+<li class="fragment">Data Science</li>
+<li class="fragment">Machine Learning
+<ul>
+<li class="fragment">Clasificación
+<ul>
+<li class="fragment">kNN</li>
+<li class="fragment">Naive Bayes</li>
+<li class="fragment">Árboles de Decisión</li>
+</ul></li>
+</ul></li>
+<li class="fragment">Deep Learning
+<ul>
+<li class="fragment">Conceptos</li>
+<li class="fragment">Ejemplos</li>
+</ul></li>
+<li class="fragment">Visualización</li>
+</ul>
+</section>
+<section>
+<section id="big-data" class="title-slide slide level1" data-background="img/bigdata-bg.jpg">
+<h1 data-background="img/bigdata-bg.jpg">Big Data</h1>
+
+</section>
+<section id="para-que-usamos-los-datos" class="slide level2">
+<h2>Para que usamos los datos</h2>
+<ul>
+<li class="fragment">Responder una pregunta concreta</li>
+<li class="fragment">Contar una historia</li>
+<li class="fragment">Explorar las relaciones entre las cosas</li>
+<li class="fragment">Descubrir un patrón</li>
+<li class="fragment">Utilizarlos para tomar una decisión</li>
+<li class="fragment">Automatizar un proceso</li>
+<li class="fragment">Validar un experimento, … etc.</li>
+</ul>
+</section>
+<section id="que-és-big-data" class="slide level2">
+<h2>¿Que és Big Data?</h2>
+<ul>
+<li class="fragment">Término que engloba a los retos que se enfrentan al intentar manejar, procesar, y obtener conclusiones de cantidades ingentes de datos.</li>
+<li class="fragment">Características a tomar en cuenta:
+<ul>
+<li class="fragment">Volúmen (cantidad de datos generados y/o almacenados)</li>
+<li class="fragment">Velocidad (con que frecuencia se renuevan/aparecen)</li>
+<li class="fragment">Variedad (múltiples fuentes y formatos)</li>
+<li class="fragment">Variabilidad (inconstencias o cambios en datos)</li>
+<li class="fragment">Veracidad (calidad de los datos)</li>
+</ul></li>
+</ul>
+</section>
+<section id="ejemplo-de-big-data" class="slide level2">
+<h2>Ejemplo de “Big Data”</h2>
+<ul>
+<li class="fragment">Twitter Firehose:
+<ul>
+<li class="fragment">Acceso al 100% de los tweets
+<ul>
+<li class="fragment">Twitter Streaming API hace muestreo</li>
+</ul></li>
+<li class="fragment">Contenido disponible en tiempo (casi) real</li>
+<li class="fragment">Dos proveedores: GNIP y DataSift</li>
+<li class="fragment">Aproximadamente 500 millones ($0.5 ^9) de tweets diarios
+<ul>
+<li class="fragment">No sólo texto: imágenes, enlaces, tags, etc.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="ejemplo-de-big-data-1" class="slide level2">
+<h2>Ejemplo de “Big Data”</h2>
+<ul>
+<li class="fragment">Google Web index
+<ul>
+<li class="fragment">60 billones (<span class="math inline">\(60 \times 10^{12}\)</span>) de páginas web</li>
+<li class="fragment">Aproximadamente 100 (<span class="math inline">\(0.1 \times 10^{15}\)</span>) Petabytes</li>
+<li class="fragment">El volúme es mayor si tomamos en cuenta imágenes, videos, audio, etc. que también esta indexado</li>
+<li class="fragment">Aproximadamente 1’000,000 de servidores en funcionamiento</li>
+<li class="fragment">Gasta USD 5,000 millones cada trimestre sólo en mantener sus datacenters</li>
+</ul></li>
+</ul>
+</section>
+<section id="big-data-en-salud" class="slide level2">
+<h2>Big Data en salud</h2>
+<ul>
+<li class="fragment">Bristol-Myers Squibb:
+<ul>
+<li class="fragment">Reducción en tiempos para simulaciones de ensayos clínicos en un 98%, incluyendo optimización de dosis, niveles, análisis, de los pacientes.</li>
+<li class="fragment">Antes: en promedio unas 60 horas para cada simulación, ahora usan la nube (AWS) y se ha reducido a 1.2 horas.</li>
+</ul></li>
+</ul>
+</section>
+<section id="big-data-en-recursos-humanos" class="slide level2">
+<h2>Big Data en recursos humanos</h2>
+<ul>
+<li class="fragment">Xerox:
+<ul>
+<li class="fragment">Disminuyó en un 20% la pérdida laboral en sus call centers</li>
+<li class="fragment">Análisis de las causas por las cuales los empleados se iban</li>
+<li class="fragment">Incluyendo las capacidades y conocimientos</li>
+<li class="fragment">Cambió sus forma de contrato y aumento el compromiso de los trabajadores</li>
+</ul></li>
+</ul>
+</section>
+<section id="big-data-en-negocios" class="slide level2">
+<h2>Big Data en negocios</h2>
+<ul>
+<li class="fragment">IBM y The Weather Company
+<ul>
+<li class="fragment">Impacto del clima en los negocios estimado entre USD 0.5 y 1 billón (<span class="math inline">\(10^{12}\)</span>), sólo en USA.</li>
+<li class="fragment">Mas de 100,000 sensores remotos (incluyendo en aviones), asi como millones de smarthphones, edificios y vehículos motorizados</li>
+<li class="fragment">Se emplean entre 2.2 a 10 mil millones (<span class="math inline">\(10^9\)</span>) de datos climatológicos al día</li>
+<li class="fragment">Entre los usuarios se encuentran las compañías de seguro</li>
+</ul></li>
+</ul>
+</section>
+<section id="big-data-en-reducción-de-costos" class="slide level2">
+<h2>Big Data en reducción de costos</h2>
+<ul>
+<li class="fragment">Pratt &amp; Whitney
+<ul>
+<li class="fragment">Fabricante de motores de aviación, intenta reducir los eventos de falla o mantenimiento no planeados.</li>
+<li class="fragment">Recaban unos 5,000 parámetros continuamente antes, durante y después de un vuelo.</li>
+<li class="fragment">Esto genera unos 2 Pb (Petabytes, <span class="math inline">\(10^{12}\)</span> bytes) de datos que tienen que ser analizados</li>
+</ul></li>
+</ul>
+</section>
+<section id="tecnologías-de-soporte" class="slide level2">
+<h2>Tecnologías de soporte</h2>
+<ul>
+<li class="fragment">Almacenamiento de datos (ej. GFS, ZFS, Amazon S3, etc.)</li>
+<li class="fragment">Proceso de datos (ej. Apache Hadoop, Apache Spark, etc.)</li>
+<li class="fragment">Análisis de data streams (ej. Apache Kafka, AWS Kinesis, etc.)</li>
+<li class="fragment">Visualización de datos (ej. D3.js, Plotly, NVD3, etc.)</li>
+<li class="fragment">Lenguajes de programación/análisis/modelaje (ej. R, Python, Julia, Scala, etc.)</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="img/forrester-graphic-bigdata.gif" alt="" /><figcaption>Forrester Research on Big Data</figcaption>
+</figure>
+</section>
+<section id="the-panama-papers" class="slide level2" data-background="img/panamapapers-site.png">
+<h2 data-background="img/panamapapers-site.png"><a href="https://www.icij.org/investigations/panama-papers/">The Panama Papers</a></h2>
+</section></section>
+<section>
+<section id="data-science" class="title-slide slide level1" data-background="img/datascience-bg.jpg">
+<h1 data-background="img/datascience-bg.jpg">Data Science</h1>
+
+</section>
+<section id="qué-es-data-science" class="slide level2">
+<h2>¿Qué es Data Science?</h2>
+<ul>
+<li class="fragment">Un campo interdisciplinario que trata de extraer (usando métodos científicos, procesos y sistemas) conocimiento o ideas nuevas de los datos.</li>
+<li class="fragment">Los datos pueden provenir de múltiples fuentes, con diversos niveles de calidad, ser completos o parciales, además de poder estar estructurados o no estructurados, entre otras características.</li>
+</ul>
+</section>
+<section id="requisitos" class="slide level2">
+<h2>Requisitos</h2>
+<ul>
+<li class="fragment">Manipulación y limpieza de datos</li>
+<li class="fragment">Bases de datos estructuradas y no estructuradas</li>
+<li class="fragment">Estadística y matemáticas</li>
+<li class="fragment">Machine Learning</li>
+<li class="fragment">Programación de software
+<ul>
+<li class="fragment">Especialmente en lenguajes de análisis de datos (R, Python, etc.)</li>
+</ul></li>
+<li class="fragment">Visualización de datos y comunicación</li>
+</ul>
+</section>
+<section id="data-scientist-road-map" class="slide level2">
+<h2>Data Scientist Road Map</h2>
+<p>(Fuente: <a href="http://nirvacana.com/thoughts/becoming-a-data-scientist/">http://nirvacana.com/thoughts/becoming-a-data-scientist/</a>)</p>
+<figure>
+<img data-src="img/RoadToDataScientist1.png" alt="" /><figcaption>Road Map</figcaption>
+</figure>
+</section>
+<section id="kaggle" class="slide level2" data-background="img/kaggle-com.png">
+<h2 data-background="img/kaggle-com.png"><a href="https://www.kaggle.com/">Kaggle</a></h2>
+</section></section>
+<section>
+<section id="machine-learning" class="title-slide slide level1" data-background="img/machinelearning-bg.png">
+<h1 data-background="img/machinelearning-bg.png">Machine Learning</h1>
+
+</section>
+<section id="qué-es-inteligencia-artificial" class="slide level2">
+<h2>¿Qué es Inteligencia Artificial?</h2>
+<ul>
+<li class="fragment">Un término general que se refiere a sistemas computacionales con la capacidad de encontrar respuestas a problemas, sin ayuda humana y sin tener la solución codificada en software.</li>
+</ul>
+</section>
+<section id="objetivos-de-la-inteligencia-artificial" class="slide level2">
+<h2>Objetivos de la Inteligencia Artificial</h2>
+<ul>
+<li class="fragment">Razonamiento y resolución de Problemas</li>
+<li class="fragment">Representación del conocimiento</li>
+<li class="fragment">Planificación</li>
+<li class="fragment">Aprendizaje (Machine Learning)</li>
+<li class="fragment">Procesamiento del lenguaje</li>
+</ul>
+</section>
+<section id="objetivos-de-la-inteligencia-artificial-1" class="slide level2">
+<h2>Objetivos de la Inteligencia Artificial</h2>
+<ul>
+<li class="fragment">Percepción</li>
+<li class="fragment">Movimiento y manipulación</li>
+<li class="fragment">Inteligencia social</li>
+<li class="fragment">Creatividad</li>
+<li class="fragment">Inteligencia general (AI-complete)</li>
+</ul>
+</section>
+<section id="qué-es-machine-learning" class="slide level2">
+<h2>¿Qué es Machine Learning?</h2>
+<ul>
+<li class="fragment">El campo de estudio interesado en el desarrollo de algoritmos computacionales, que permitan la transformación de datos en acciones y conocimiento inteligente.</li>
+<li class="fragment">Se ha desarrollado en un medio en el cual el poder computacional, el volúmen de datos, y los métodos estadísticos han crecido rápida y simultáneamente. <img data-src="img/data-computer-statistics-cycle.png" alt="Data, Computer and Statistics" /></li>
+</ul>
+</section>
+<section id="tipos-de-algoritmos" class="slide level2">
+<h2>Tipos de algoritmos</h2>
+<p>Clasificados en función al “feedback” disponible para el sistema de aprendizaje:</p>
+<dl>
+<dt class="fragment">Aprendizaje Supervisado</dt>
+<dd class="fragment">Se emplean ejemplos de entradas y salidas deseadas, y se genera un modelo general que genera reglas para mapear entradas a salidas
+</dd>
+<dt class="fragment">Aprendizaje No Supervisado</dt>
+<dd class="fragment">No se asignan “etiquetas” a los datos, y el algoritmo genera una estructura <em>de novo</em> en función a las características de los items. El objetivo es el encontrar (posibles) patrones ocultes en los datos
+</dd>
+<dt class="fragment">Aprendizaje de Reforzamiento</dt>
+<dd class="fragment">Un software interactúa con un ambiente dinámico intentanto alcanzar un objetivo (ej. manejar un vehículo), y la retroalimentación que recibe le permite transitar el espacio de opciones del problema.
+</dd>
+</dl>
+</section>
+<section id="tareas-en-ml" class="slide level2">
+<h2>Tareas en ML</h2>
+<dl>
+<dt class="fragment">Clasificación</dt>
+<dd class="fragment">Los datos se tienen que poner en una o mas clases, empleando un modelo. Generalmente son algoritmos supervisados.
+</dd>
+<dt class="fragment">Regresión</dt>
+<dd class="fragment">Cuando las salidas son continuas y no discretas. Se emplean algoritmos supervisados.
+</dd>
+<dt class="fragment">Agrupamiento</dt>
+<dd class="fragment">Intentar agrupar datos en grupos, los cuales no son conocidos <em>a priori</em>. Se usan algoritmos no supervisados.
+</dd>
+</dl>
+</section>
+<section id="tareas-en-ml-1" class="slide level2">
+<h2>Tareas en ML</h2>
+<dl>
+<dt class="fragment">Estimación de la densidad</dt>
+<dd class="fragment">Trata de encontrar la distribución de los datos en un espacio de propiedades determinado.
+</dd>
+<dt class="fragment">Reducción de la dimensionalidad</dt>
+<dd class="fragment">Intenta simplificar los datos mapeándolos a un espacio de menor dimensionalidad. A esto se relaciona el problema de “Modelamiento de Tópico”, que intenta extraer los conceptos claves de documentos para estimar similitudes entres los mismos (parte de NLP).
+</dd>
+</dl>
+</section>
+<section id="clasificación-de-especies-de-flores-knn" class="slide level2">
+<h2>Clasificación de especies de flores (kNN)</h2>
+<p>Usaremos el conjunto de datos de lirios de Anderson (y/o Fisher).</p>
+<figure>
+<img data-src="img/lirios-especies.png" alt="" /><figcaption>Las tres especies de lirios</figcaption>
+</figure>
+</section>
+<section id="lirios---variables" class="slide level2">
+<h2>Lirios - Variables</h2>
+<p>Tiene cinco variables: longitud y ancho del sépalo, longitud y ancho del pétalo, y la especie asignada.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">data</span>(<span class="st">&quot;iris&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">str</span>(iris)</span></code></pre></div>
+<pre><code>&#39;data.frame&#39;:   150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+</section>
+<section id="lirios---estadísticas" class="slide level2">
+<h2>Lirios - Estadísticas</h2>
+<p>Estadísticas básicas de los datos</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">pander</span>(<span class="kw">summary</span>(iris))</span></code></pre></div>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Sepal.Length</th>
+<th style="text-align: center;">Sepal.Width</th>
+<th style="text-align: center;">Petal.Length</th>
+<th style="text-align: center;">Petal.Width</th>
+<th style="text-align: center;">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Min. :4.300</td>
+<td style="text-align: center;">Min. :2.000</td>
+<td style="text-align: center;">Min. :1.000</td>
+<td style="text-align: center;">Min. :0.100</td>
+<td style="text-align: center;">setosa :50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1st Qu.:5.100</td>
+<td style="text-align: center;">1st Qu.:2.800</td>
+<td style="text-align: center;">1st Qu.:1.600</td>
+<td style="text-align: center;">1st Qu.:0.300</td>
+<td style="text-align: center;">versicolor:50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Median :5.800</td>
+<td style="text-align: center;">Median :3.000</td>
+<td style="text-align: center;">Median :4.350</td>
+<td style="text-align: center;">Median :1.300</td>
+<td style="text-align: center;">virginica :50</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Mean :5.843</td>
+<td style="text-align: center;">Mean :3.057</td>
+<td style="text-align: center;">Mean :3.758</td>
+<td style="text-align: center;">Mean :1.199</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3rd Qu.:6.400</td>
+<td style="text-align: center;">3rd Qu.:3.300</td>
+<td style="text-align: center;">3rd Qu.:5.100</td>
+<td style="text-align: center;">3rd Qu.:1.800</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Max. :7.900</td>
+<td style="text-align: center;">Max. :4.400</td>
+<td style="text-align: center;">Max. :6.900</td>
+<td style="text-align: center;">Max. :2.500</td>
+<td style="text-align: center;">NA</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lirios---gráfico-de-sépalos" class="slide level2">
+<h2>Lirios - gráfico de sépalos</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Sepal.Length, <span class="dt">y =</span> Sepal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img data-src="20170520-bigdata-machinelearning_files/figure-revealjs/unnamed-chunk-4-1.png" /><!-- --></p>
+</section>
+<section id="lirios---gráfico-de-pétalos" class="slide level2">
+<h2>Lirios - gráfico de pétalos</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">ggplot</span>(iris, <span class="kw">aes</span>(<span class="dt">x =</span> Petal.Length, <span class="dt">y =</span> Petal.Width, <span class="dt">color =</span> Species)) <span class="op">+</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img data-src="20170520-bigdata-machinelearning_files/figure-revealjs/unnamed-chunk-5-1.png" /><!-- --></p>
+</section>
+<section id="lirios---grupo-de-entrenamiento-y-de-pruebas" class="slide level2">
+<h2>Lirios - grupo de entrenamiento y de pruebas</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(caret)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">set.seed</span>(<span class="dv">13579</span>)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(iris<span class="op">$</span>Species, <span class="dt">p=</span><span class="fl">0.75</span>, <span class="dt">list=</span><span class="ot">FALSE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>iris.train &lt;-<span class="st"> </span>iris[index,]</span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">head</span>(iris.train, <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Sepal.Length</th>
+<th style="text-align: right;">Sepal.Width</th>
+<th style="text-align: right;">Petal.Length</th>
+<th style="text-align: right;">Petal.Width</th>
+<th style="text-align: left;">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">3.5</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4.9</td>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4.7</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">1.3</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>iris.test &lt;-<span class="st"> </span>iris[<span class="op">-</span>index,]</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="kw">head</span>(iris.test, <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Sepal.Length</th>
+<th style="text-align: right;">Sepal.Width</th>
+<th style="text-align: right;">Petal.Length</th>
+<th style="text-align: right;">Petal.Width</th>
+<th style="text-align: left;">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">7</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">16</td>
+<td style="text-align: right;">5.7</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: left;">setosa</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lirios---el-modelo" class="slide level2">
+<h2>Lirios - el modelo</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>model.knn &lt;-<span class="st"> </span><span class="kw">train</span>(iris.train[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>], iris.train[, <span class="dv">5</span>], <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object =</span> model.knn, iris.test[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="kw">print</span>(predictions)</span></code></pre></div>
+<pre><code> [1] setosa     setosa     setosa     setosa     setosa     setosa    
+ [7] setosa     setosa     setosa     setosa     setosa     setosa    
+[13] versicolor versicolor versicolor versicolor versicolor versicolor
+[19] versicolor versicolor versicolor versicolor versicolor versicolor
+[25] virginica  virginica  virginica  virginica  virginica  virginica 
+[31] virginica  virginica  virginica  virginica  virginica  versicolor
+Levels: setosa versicolor virginica</code></pre>
+</section>
+<section id="lirios---comparación-del-modelo" class="slide level2">
+<h2>Lirios - Comparación del modelo</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">confusionMatrix</span>(predictions, iris.test[, <span class="dv">5</span>])</span></code></pre></div>
+<pre><code>Confusion Matrix and Statistics
+
+            Reference
+Prediction   setosa versicolor virginica
+  setosa         12          0         0
+  versicolor      0         12         1
+  virginica       0          0        11
+
+Overall Statistics
+                                          
+               Accuracy : 0.9722          
+                 95% CI : (0.8547, 0.9993)
+    No Information Rate : 0.3333          
+    P-Value [Acc &gt; NIR] : 4.864e-16       
+                                          
+                  Kappa : 0.9583          
+                                          
+ Mcnemar&#39;s Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: setosa Class: versicolor Class: virginica
+Sensitivity                 1.0000            1.0000           0.9167
+Specificity                 1.0000            0.9583           1.0000
+Pos Pred Value              1.0000            0.9231           1.0000
+Neg Pred Value              1.0000            1.0000           0.9600
+Prevalence                  0.3333            0.3333           0.3333
+Detection Rate              0.3333            0.3333           0.3056
+Detection Prevalence        0.3333            0.3611           0.3056
+Balanced Accuracy           1.0000            0.9792           0.9583</code></pre>
+</section>
+<section id="clasificación-de-spamham-naive-bayes" class="slide level2" data-background-iframe="https://castagnetto.site/post/2015-01-03-caret-sms-spamham-classification/">
+<h2 data-background-iframe="https://castagnetto.site/post/2015-01-03-caret-sms-spamham-classification/"><a href="https://castagnetto.site/post/2015-01-03-caret-sms-spamham-classification/">Clasificación de SPAM/HAM (Naive Bayes)</a></h2>
+</section>
+<section id="el-titanic-decision-trees" class="slide level2" data-background-iframe="http://hamelg.blogspot.pe/2015/09/introduction-to-r-part-29-decision-trees.html">
+<h2 data-background-iframe="http://hamelg.blogspot.pe/2015/09/introduction-to-r-part-29-decision-trees.html"><a href="http://hamelg.blogspot.pe/2015/09/introduction-to-r-part-29-decision-trees.html">El Titanic (Decision Trees)</a></h2>
+</section></section>
+<section>
+<section id="deep-learning" class="title-slide slide level1" data-background="img/deeplearning-bg.jpg">
+<h1 data-background="img/deeplearning-bg.jpg">Deep Learning</h1>
+
+</section>
+<section id="redes-neuronales-artificiales" class="slide level2">
+<h2>Redes Neuronales Artificiales</h2>
+<ul>
+<li class="fragment">Sistemas que tratan de emular la forma como funciona el cerebro, con una colección de unidades denonimadas neuronas artificiales.</li>
+<li class="fragment">Las conexiones entre estas unidades llevan señales de fuerza variable, y si la combinación de señales es suficientemente fuerte, la neurona se activa.</li>
+<li class="fragment">Se entrena al sistema mediante ejemplos, en lugar de emplear un algoritmo o solución heurística codificada.</li>
+<li class="fragment">Muy útil cuando la extracción de características, o la definición misma de un problema es difícil de expresar matemática o computacionalmente</li>
+</ul>
+</section>
+<section id="redes-neuronales-artificiales-1" class="slide level2">
+<h2>Redes Neuronales Artificiales</h2>
+<figure>
+<img data-src="img/artificial-neural-network.png" alt="" /><figcaption>Esquema de una Red Neuronal Artificial</figcaption>
+</figure>
+</section>
+<section id="qué-es-deep-learning" class="slide level2">
+<h2>¿Qué es Deep Learning?</h2>
+<ul>
+<li class="fragment">Son algoritmos de ML que:
+<ul>
+<li class="fragment">Usan una cascada de muchas capas de procesamiento no-lineal para la extracción de características y transformación de datos</li>
+<li class="fragment">Usan una organización y estructura de interconexión que hace que cada capa reciba la salida de la anterior como entrada.</li>
+<li class="fragment">Se basan (usualmente) en el aprendizaje no supervisad de múltiples niveles de características o representaciones ed los datos.</li>
+<li class="fragment">Son capaces de generar múltiples niveles de abstracción, los que representan una jeraquía de conceptos.</li>
+</ul></li>
+</ul>
+</section>
+<section id="autodraw" class="slide level2" data-background-iframe="https://aiexperiments.withgoogle.com/autodraw">
+<h2 data-background-iframe="https://aiexperiments.withgoogle.com/autodraw"><a href="https://aiexperiments.withgoogle.com/autodraw">AutoDraw</a></h2>
+</section>
+<section id="the-infinite-drum-machine" class="slide level2" data-background-iframe="https://aiexperiments.withgoogle.com/drum-machine">
+<h2 data-background-iframe="https://aiexperiments.withgoogle.com/drum-machine"><a href="https://aiexperiments.withgoogle.com/drum-machine">The Infinite Drum Machine</a></h2>
+</section>
+<section id="aws-rekognition" class="slide level2">
+<h2><a href="https://aws.amazon.com/rekognition/">AWS Rekognition</a></h2>
+<figure>
+<img data-src="img/aws-rekognition.png" alt="" /><figcaption>AWS Rekognition: Análisis de Rostros</figcaption>
+</figure>
+</section>
+<section id="aws-rekognition---escenas" class="slide level2">
+<h2>AWS Rekognition - Escenas</h2>
+<figure>
+<img data-src="img/upch-rekognition.png" alt="" /><figcaption>Reconocimiento de componentes en una escena</figcaption>
+</figure>
+</section>
+<section id="aws-rekognition---rostro" class="slide level2">
+<h2>AWS Rekognition - Rostro</h2>
+<figure>
+<img data-src="img/einstein-rekognition.png" alt="" /><figcaption>Características faciales</figcaption>
+</figure>
+</section>
+<section id="aws-rekognition---comparaciones-de-rostros" class="slide level2">
+<h2>AWS Rekognition - Comparaciones de rostros</h2>
+<figure>
+<img data-src="img/einstein-solvayconf-rekognition.png" alt="" /><figcaption>Encontrar una persona en una foto</figcaption>
+</figure>
+</section></section>
+<section>
+<section id="visualización" class="title-slide slide level1" data-background="img/datavisualization-bg.png">
+<h1 data-background="img/datavisualization-bg.png">Visualización</h1>
+
+</section>
+<section id="visualizing-friendships-facebook-2010" class="slide level2" data-background="img/facebook-friendship-map.jpg">
+<h2 data-background="img/facebook-friendship-map.jpg"><a href="https://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919/">Visualizing Friendships (Facebook, 2010)</a></h2>
+</section>
+<section id="d3.js" class="slide level2" data-background-iframe="https://d3js.org/">
+<h2 data-background-iframe="https://d3js.org/"><a href="https://d3js.org/">D3.js</a></h2>
+</section>
+<section id="shiny" class="slide level2" data-background-iframe="https://shiny.rstudio.com/gallery/">
+<h2 data-background-iframe="https://shiny.rstudio.com/gallery/"><a href="https://shiny.rstudio.com/gallery/">Shiny</a></h2>
+</section>
+<section id="mi-ejemplo-de-análisisvisualización" class="slide level2" data-background-iframe="https://jmcastagnetto.github.io/coursera-data-products-july2015/#/">
+<h2 data-background-iframe="https://jmcastagnetto.github.io/coursera-data-products-july2015/#/"><a href="https://jmcastagnetto.github.io/coursera-data-products-july2015/#/">Mi ejemplo de análisis/visualización</a></h2>
+</section>
+<section id="plotly" class="slide level2" data-background="img/plotly-example.png">
+<h2 data-background="img/plotly-example.png"><a href="https://plot.ly/">Plotly</a></h2>
+</section></section>
+    </div>
+  </div>
+
+  <script src="20170520-bigdata-machinelearning_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="20170520-bigdata-machinelearning_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '20170520-bigdata-machinelearning_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
