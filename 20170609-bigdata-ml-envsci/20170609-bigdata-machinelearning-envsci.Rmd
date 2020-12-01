@@ -1,7 +1,8 @@
 ---
 title: "Big Data y Machine Learning: Conceptos Generales y Ejemplos en Ciencia Ambiental"
 author: "Jesús M. Castagnetto, Ph.D."
-date: "2017/06/09\nUniversidad Nacional de Ingeniería"
+date: "2017/06/09"
+location: "Universidad Nacional de Ingeniería"
 output:
   revealjs::revealjs_presentation:
     mathjax: default

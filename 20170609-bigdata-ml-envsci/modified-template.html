@@ -509,10 +509,13 @@ $if(subtitle)$
   <h1 class="subtitle">$subtitle$</h1>
 $endif$
 $for(author)$
-    <h2 class="author">$author$</h2>
+    <h2 class="author" style="font-style: italic;">$author$</h2>
 $endfor$
 $if(date)$
     <h3 class="date">$date$</h3>
+$endif$
+$if(location)$
+    <h4 style="float: right;">$location$</h4>
 $endif$
 </section>
 $endif$
