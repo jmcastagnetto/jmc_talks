@@ -1,0 +1,14 @@
+revealjs::revealjs_presentation:
+  template: modified-template.html
+  theme: night
+  higlight: zenburn
+  center: true
+  incremental: true
+  fig_caption: true
+  mathjax: null
+  self_contained: false
+  reveal_plugins: ["chalkboard"]
+  reveal_options:
+    slideNumber: true
+    previewLinks: true
+

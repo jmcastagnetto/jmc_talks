@@ -1,0 +1,460 @@
+---
+title: "Big Data y Machine Learning: Conceptos Generales y Ejemplos en Ciencia Ambiental"
+author: "Jesús M. Castagnetto, Ph.D."
+date: "2017/06/09\nUniversidad Nacional de Ingeniería"
+output:
+  revealjs::revealjs_presentation:
+    mathjax: default
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.width=8, fig.height=5) 
+```
+
+## Agenda
+
+- Big Data
+- Data Science
+- Machine Learning
+    - Ejemplos de Clasificación
+- Deep Learning
+    - Conceptos
+    - Ejemplos
+- Visualización
+
+# Big Data {data-background="img/bigdata-bg.jpg"}
+
+## Para que usamos los datos
+
+- Responder una pregunta concreta
+- Contar una historia
+- Explorar las relaciones entre las cosas
+- Descubrir un patrón
+- Utilizarlos para tomar una decisión
+- Automatizar un proceso
+- Validar un experimento, ... etc.
+
+## ¿Que és Big Data?
+
+- Término que engloba a los retos que se enfrentan al intentar manejar, procesar,
+  y obtener conclusiones de cantidades ingentes de datos.
+- Características a tomar en cuenta:
+    - Volúmen (cantidad de datos generados y/o almacenados)
+    - Velocidad (con que frecuencia se renuevan/aparecen)
+    - Variedad (múltiples fuentes y formatos)
+    - Variabilidad (inconstencias o cambios en datos)
+    - Veracidad (calidad de los datos)
+
+## Ejemplo de "Big Data"
+
+- Twitter Firehose:
+    - Acceso al 100% de los tweets
+        - Twitter Streaming API hace muestreo
+    - Contenido disponible en tiempo (casi) real
+    - Dos proveedores: GNIP y DataSift
+    - Aproximadamente 500 millones ($0.5 \times 10^9$) de tweets diarios
+        - No sólo texto: imágenes, enlaces, tags, etc.
+
+## Ejemplo de "Big Data"
+
+- Google Web index
+    - 60 billones ($60 \times 10^{12}$) de páginas web
+    - Aproximadamente 100 ($0.1 \times 10^{15}$) Petabytes
+    - El volúme es mayor si tomamos en cuenta imágenes, videos,
+      audio, etc. que también esta indexado
+    - Aproximadamente 1'000,000 de servidores en funcionamiento
+    - Gasta USD 5,000 millones cada trimestre sólo en mantener 
+      sus datacenters
+
+## Big Data en salud
+
+- Bristol-Myers Squibb:
+    - Reducción en tiempos para simulaciones de ensayos clínicos
+      en un 98%, incluyendo optimización de dosis, niveles, análisis, 
+      de los pacientes.
+    - Antes: en promedio unas 60 horas para cada simulación, ahora usan
+      la nube (AWS) y se ha reducido a 1.2 horas.
+      
+## Big Data en negocios
+
+- IBM y The Weather Company
+    - Impacto del clima en los negocios estimado entre USD 0.5 y 1 billón
+      ($10^{12}$), sólo en USA.
+    - Mas de 100,000 sensores remotos (incluyendo en aviones), asi como
+      millones de smarthphones, edificios y vehículos motorizados
+    - Se emplean entre 2.2 a 10 mil millones ($10^9$) de datos climatológicos al día
+    - Entre los usuarios se encuentran las compañías de seguro
+
+## Big Data en reducción de costos
+
+- Pratt & Whitney
+    - Fabricante de motores de aviación, intenta reducir los
+      eventos de falla o mantenimiento no planeados.
+    - Recaban unos 5,000 parámetros continuamente antes, durante y
+      después de un vuelo.
+    - Esto genera unos 2 Pb (Petabytes, $10^{12}$ bytes) de 
+      datos que tienen que ser analizados
+
+## Tecnologías de soporte
+
+- Almacenamiento de datos (ej. GFS, ZFS, Amazon S3, etc.)
+- Proceso de datos (ej. Apache Hadoop, Apache Spark, etc.)
+- Análisis de data streams (ej. Apache Kafka, AWS Kinesis, etc.)
+- Visualización de datos (ej. D3.js, Plotly, NVD3, etc.)
+- Lenguajes de programación/análisis/modelaje (ej. R, Python, Julia, Scala, etc.)
+
+## Forrester Research on Big Data
+
+```{r out.height="500px", echo=FALSE}
+knitr::include_graphics("img/forrester-graphic-bigdata.gif")
+```
+
+Fuente: https://www.forbes.com/sites/gilpress/2016/03/14/top-10-hot-big-data-technologies/#481d8f165d7b
+
+## [The Panama Papers](https://www.icij.org/investigations/panama-papers/) {data-background="img/panamapapers-site.png"}
+
+# Data Science {data-background="img/datascience-bg.jpg"}
+
+## ¿Qué es Data Science?
+
+- Un campo interdisciplinario que trata de extraer (usando métodos
+  científicos, procesos y sistemas) conocimiento o ideas nuevas de 
+  los datos.
+- Los datos pueden provenir de múltiples fuentes, con diversos niveles
+  de calidad, ser completos o parciales, además de poder estar
+  estructurados o no estructurados, entre otras características.
+
+## Requisitos
+
+- Manipulación y limpieza de datos
+- Bases de datos estructuradas y no estructuradas
+- Estadística y matemáticas
+- Machine Learning
+- Programación de software
+    - Especialmente en lenguajes de análisis de datos (R, Python, etc.)
+- Visualización de datos y comunicación
+
+## Data Scientist Road Map
+
+(Fuente: [http://nirvacana.com/thoughts/becoming-a-data-scientist/](http://nirvacana.com/thoughts/becoming-a-data-scientist/))
+
+```{r out.height="500px", echo=FALSE}
+knitr::include_graphics("img/RoadToDataScientist1.png")
+```
+
+## [Kaggle](https://www.kaggle.com/) {data-background="img/kaggle-com.png"}
+
+
+# Machine Learning {data-background="img/machinelearning-bg.png"}
+
+
+## ¿Qué es Inteligencia Artificial?
+
+- Un término general que se refiere a sistemas computacionales con la
+  capacidad de encontrar respuestas a problemas, sin ayuda humana y sin
+  tener la solución codificada en software.
+
+## Objetivos de la Inteligencia Artificial
+
+- Razonamiento y resolución de Problemas
+- Representación del conocimiento
+- Planificación
+- Aprendizaje (Machine Learning)
+- Procesamiento del lenguaje
+
+## Objetivos de la Inteligencia Artificial
+
+- Percepción
+- Movimiento y manipulación
+- Inteligencia social
+- Creatividad
+- Inteligencia general (AI-complete)
+
+## ¿Qué es Machine Learning?
+
+- El campo de estudio interesado en el desarrollo de algoritmos
+  computacionales, que permitan la transformación de datos en acciones
+  y conocimiento inteligente.
+- Se ha desarrollado en un medio en el cual el poder computacional, 
+  el volúmen de datos, y los métodos estadísticos han crecido rápida
+  y simultáneamente. ![Data, Computer and Statistics](img/data-computer-statistics-cycle.png)
+
+
+## Tipos de algoritmos
+
+Clasificados en función al "feedback" disponible para el sistema de aprendizaje:
+
+Aprendizaje Supervisado
+: Se emplean ejemplos de entradas y salidas deseadas, y se genera un
+  modelo general que genera reglas para mapear entradas a salidas
+  
+Aprendizaje No Supervisado
+: No se asignan "etiquetas" a los datos, y el algoritmo genera una
+  estructura *de novo* en función a las características de los items.
+  El objetivo es el encontrar (posibles) patrones ocultes en los
+  datos
+
+Aprendizaje de Reforzamiento
+: Un software interactúa con un ambiente dinámico intentanto alcanzar
+  un objetivo (ej. manejar un vehículo), y la retroalimentación que
+  recibe le permite transitar el espacio de opciones del problema.
+
+## Tareas en ML
+
+Clasificación
+: Los datos se tienen que poner en una o mas clases,
+  empleando un modelo. Generalmente son algoritmos supervisados.
+
+Regresión
+: Cuando las salidas son continuas y no discretas. Se
+  emplean algoritmos supervisados.
+
+Agrupamiento
+: Intentar agrupar datos en grupos, los cuales no
+  son conocidos *a priori*. Se usan algoritmos no supervisados.
+
+## Tareas en ML
+
+Estimación de la densidad
+: Trata de encontrar la distribución de los
+  datos en un espacio de propiedades determinado.
+
+Reducción de la dimensionalidad
+: Intenta simplificar los datos
+  mapeándolos a un espacio de menor dimensionalidad. A esto se
+  relaciona el problema de "Modelamiento de Tópico", que intenta
+  extraer los conceptos claves de documentos para estimar similitudes
+  entres los mismos (parte de NLP).
+
+## Clasificación de especies de flores (kNN)
+
+Usaremos el conjunto de datos de lirios de Anderson (y/o Fisher).
+
+![Las tres especies de lirios](img/lirios-especies.png)
+
+## Lirios - Variables
+
+Tiene cinco variables: longitud y ancho del sépalo, longitud y ancho
+del pétalo, y la especie asignada.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+library(knitr)
+library(printr)
+library(pander)
+library(ggplot2)
+library(dplyr)
+opts_chunk$set(comment = "", warning = FALSE, message = FALSE)
+```
+```{r comment=""}
+data("iris")
+str(iris)
+```
+
+## Lirios - Estadísticas
+
+Estadísticas básicas de los datos
+
+```{r results='asis'}
+pander(summary(iris))
+```
+
+## Lirios - gráfico de sépalos
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point() + theme_classic()
+```
+
+## Lirios - gráfico de pétalos
+
+```{r}
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point() + theme_classic()
+```
+
+
+## Lirios - grupo de entrenamiento y de pruebas
+
+```{r}
+library(caret)
+set.seed(13579)
+index <- createDataPartition(iris$Species, p=0.75, list=FALSE)
+iris.train <- iris[index,]
+head(iris.train, 3)
+```
+
+```{r}
+iris.test <- iris[-index,]
+head(iris.test, 3)
+```
+
+## Lirios - el modelo
+
+```{r}
+model.knn <- train(iris.train[, 1:4], iris.train[, 5], method = "knn")
+predictions <- predict(object = model.knn, iris.test[, 1:4])
+print(predictions)
+```
+
+## Lirios - Comparación del modelo
+
+```{r}
+confusionMatrix(predictions, iris.test[, 5])
+```
+
+
+## Contaminación del aire
+
+```{r out.height="500px", echo=FALSE}
+knitr::include_graphics("img/sota_graph.jpg")
+```
+
+Fuente: http://www.lung.org/our-initiatives/healthy-air/sota/health-risks/
+
+
+## Modelando la calidad del aire
+
+- Usaremos el set de datos `airquality` de `R`
+- Estos datos provienen de medidas de calidad de aire en New York entre
+  Mayo y Septiembre de 1973
+- Contiene: `Ozone` (en ppb), `Solar.R` (radiación solar en Langleys),
+  `Wind` (en mph), `Temp` (en Farenheit), `Month`, `Day`
+- Emplearemos el criterio de la OMS (2000), que recomienda niveles menores a
+  60 ppb de ozono.
+    
+## Explorando los datos
+
+```{r}
+data("airquality")
+pander(summary(airquality))
+```
+## Explorando los datos
+
+```{r warning=FALSE}
+library(GGally)
+ggpairs(airquality)
+```
+
+## Limpiando los datos
+
+```{r warning=FALSE}
+aq_completo <- airquality[complete.cases(airquality),]  # removemos faltantes
+aq_completo$Temp <- (aq_completo$Temp - 32) * 5 / 9     # Farenheit a Centigrados
+aq_completo$Wind <- aq_completo$Wind * 1.6              # millas/hr a km/hr
+ggpairs(aq_completo)
+```
+
+## Modelo usando el criterio de OMS (2000)
+
+```{r}
+oms_nivel <- 60  # ppb de ozono
+contaminado <- aq_completo$Ozone > oms_nivel
+aq_completo$aire <- as.factor(ifelse(contaminado, "contaminado", "limpio"))
+set.seed(12345)
+train_index <- createDataPartition(aq_completo$aire, p = 0.75, list = FALSE)
+data_train <- aq_completo[train_index, -c(1,7)]
+data_test <- aq_completo[-train_index, -c(1,7)]
+o3model1 <- train(data_train, aq_completo[train_index, 7], method = "rpart")
+```
+
+## Graficando el modelo generado
+
+```{r}
+library(rpart.plot)
+rpart.plot(o3model1$finalModel, type = 0, extra = 102)
+```
+
+## Probando nuestro modelo
+
+```{r}
+pred1 <- predict(o3model1, data_test)
+confusionMatrix(pred1, aq_completo[-train_index, 7], positive = "limpio")
+```
+
+## [Clasificación de SPAM/HAM (Naive Bayes)](https://www.castagnetto.com/post/2015-01-03-caret-sms-spamham-classification/) {data-background-iframe="https://www.castagnetto.com/post/2015-01-03-caret-sms-spamham-classification/"}
+
+## [El Titanic (Decision Trees)](http://hamelg.blogspot.pe/2015/09/introduction-to-r-part-29-decision-trees.html) {data-background-iframe="http://hamelg.blogspot.pe/2015/09/introduction-to-r-part-29-decision-trees.html"}
+
+# Deep Learning {data-background="img/deeplearning-bg.jpg"}
+
+## Redes Neuronales Artificiales
+
+- Sistemas que tratan de emular la forma como funciona el cerebro,
+  con una colección de unidades denonimadas neuronas artificiales.
+- Las conexiones entre estas unidades llevan señales de fuerza 
+  variable, y si la combinación de señales es suficientemente 
+  fuerte, la neurona se activa.
+- Se entrena al sistema mediante ejemplos, en lugar de emplear un
+  algoritmo o solución heurística codificada.
+- Muy útil cuando la extracción de características, o la definición
+  misma de un problema es difícil de expresar matemática o
+  computacionalmente
+
+## Redes Neuronales Artificiales
+
+```{r out.height="500px", echo=FALSE}
+knitr::include_graphics("img/artificial-neural-network.png")
+```
+
+
+## ¿Qué es Deep Learning?
+
+- Son algoritmos de ML que:
+    - Usan una cascada de muchas capas de procesamiento no-lineal para
+      la extracción de características y transformación de datos
+    - Usan una organización y estructura de interconexión que hace
+      que cada capa reciba la salida de la anterior como entrada.
+    - Se basan (usualmente) en el aprendizaje no supervisad de
+      múltiples niveles de características o representaciones
+      ed los datos.
+    - Son capaces de generar múltiples niveles de abstracción,
+      los que representan una jeraquía de conceptos.
+
+## [AutoDraw](https://aiexperiments.withgoogle.com/autodraw) {data-background-iframe="https://aiexperiments.withgoogle.com/autodraw"}
+
+## [The Infinite Drum Machine](https://aiexperiments.withgoogle.com/drum-machine) {data-background-iframe="https://aiexperiments.withgoogle.com/drum-machine"}
+
+## [AWS Rekognition](https://aws.amazon.com/rekognition/)
+
+![AWS Rekognition: Análisis de Rostros](img/aws-rekognition.png)
+
+## AWS Rekognition - Escenas
+
+![Reconocimiento de componentes en una escena](img/upch-rekognition.png)
+
+## AWS Rekognition - Rostro
+
+![Características faciales](img/einstein-rekognition.png)
+
+## AWS Rekognition - Comparaciones de rostros
+
+![Encontrar una persona en una foto](img/einstein-solvayconf-rekognition.png)
+
+# Visualización {data-background="img/datavisualization-bg.png"}
+
+## [Visualizing Friendships (Facebook, 2010)](https://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919/) {data-background="img/facebook-friendship-map.jpg"}
+
+## [D3.js](https://d3js.org/) {data-background-iframe="https://d3js.org/"}
+
+## [Drought and Deluge in the Lower 48](http://www.nytimes.com/interactive/2012/08/11/sunday-review/drought-history.html?_r=0) {data-background-iframe="http://www.nytimes.com/interactive/2012/08/11/sunday-review/drought-history.html?_r=0"}
+
+## [Shiny](https://shiny.rstudio.com/gallery/) {data-background-iframe="https://shiny.rstudio.com/gallery/"}
+
+## [Plotly](https://plot.ly/) {data-background="img/plotly-example.png"}
+
+## [Graphs on Global Warming](https://blog.plot.ly/post/99540799397/eight-graphs-you-should-see-on-global-warming) {data-background-iframe="https://blog.plot.ly/post/99540799397/eight-graphs-you-should-see-on-global-warming"}
+
+# Referencias
+
+## Artículos, libros, etc.
+
+- "Applications of Machine Learning in Environmental Engineering" http://www.dnagroup.org/techreps/DNA-2013-03.pdf
+- "Air Quality Prediction by Machine Learning Methods" https://open.library.ubc.ca/cIRcle/collections/ubctheses/24/items/1.0166787
+- "Machine learning for water monitoring" http://www.cs.toronto.edu/~kswersky/wp-content/uploads/WorkshopPresentation.pdf
+- R: "Analysis of Ecological and Environmental Data" https://cran.r-project.org/web/views/Environmetrics.html
+
+## Artículos, libros, etc.
+
+- "Committee on Artificial Intelligence Applications to Environmental Science" https://www2.ametsoc.org/stac/index.cfm/committees/committee-on-artificial-intelligence-applications-to-environmental-science/
+- "Machine Learning Methods in the Environmental Sciences" http://www.cambridge.org/gb/academic/subjects/earth-and-environmental-science/environmental-science/machine-learning-methods-environmental-sciences-neural-networks-and-kernels?format=HB&isbn=9780521791922#CaAjcrcoQZZc6lVt.97
+- Estudiante premiado por el estudio "Machine Learning Techniques to Identify the Critical Uncertainty Parameters Influencing the Seismic Performance of Bridges." https://www.unr.edu/nevada-today/news/2017/nevada-medal-2017
