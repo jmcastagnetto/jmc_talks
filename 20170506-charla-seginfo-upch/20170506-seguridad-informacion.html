@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jesús M. Castagnetto, Ph.D." />
+  <title>¿Cómo desarrollar seguridad en mi sistema de información?</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="20170506-seguridad-informacion_files/reveal.js-3.3.0.1/css/reveal.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+
+<link rel="stylesheet" href="20170506-seguridad-informacion_files/reveal.js-3.3.0.1/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="20170506-seguridad-informacion_files/header-attrs-2.5.3/header-attrs.js"></script>
+    <link href="20170506-seguridad-informacion_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="20170506-seguridad-informacion_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background-image="img/bigdata-main-bg.jpg">
+    <h1 class="title">¿Cómo desarrollar seguridad en mi sistema de información?</h1>
+    <h2 class="author" style="font-style: italic;">Jesús M. Castagnetto, Ph.D.</h2>
+    <h3 class="date">2017/05/06</h3>
+    <h4 style="float: right;">Universidad Peruana Cayetano Heredia</h4>
+</section>
+
+<section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li class="fragment">Sesión 1:
+<ul>
+<li class="fragment">Historia</li>
+<li class="fragment">Conceptos</li>
+<li class="fragment">Riesgos</li>
+</ul></li>
+<li class="fragment">Sesión 2:
+<ul>
+<li class="fragment">Seguridad como fundamento</li>
+<li class="fragment">Ejemplos</li>
+<li class="fragment">Conclusiones</li>
+</ul></li>
+</ul>
+</section>
+<section>
+<section id="historia" class="title-slide slide level1" data-background="img/history-bg.jpg">
+<h1 data-background="img/history-bg.jpg">Historia</h1>
+
+</section>
+<section id="pre-computadoras" class="slide level2">
+<h2>Pre-computadoras</h2>
+<ul>
+<li class="fragment">Los griegos usaban lo que ahora denominamos <em>esteganografía</em>. También emplearon <em>scytale</em> para encubrir/cifrar información</li>
+<li class="fragment">En Roma se utilizaron cifrados de transposición (ej.: cifrado Cesáreo – ROT13)</li>
+<li class="fragment">Por siglos se emplearon alfabetos ad-hoc para preservar y ocultar información secreta</li>
+</ul>
+</section>
+<section id="inicios-de-la-computación" class="slide level2">
+<h2>Inicios de la computación</h2>
+<ul>
+<li class="fragment">Enigma y el GC&amp;CS en Bletchey Park (Government Code &amp; Cypher School)</li>
+<li class="fragment">Evolucionó con el uso de Mainframes, creándose grupos especializados en cifrar información y romper cifrados de otros.</li>
+<li class="fragment">Controles físicos para limitar el acceso a las computadoras, y defenderlas contra robos, sabotaje, espionaje, etc.</li>
+</ul>
+</section>
+<section id="en-los-60s" class="slide level2">
+<h2>En los 60s</h2>
+<ul>
+<li class="fragment">Con el inicio de las interconexiones, ARPA comienza a examinar la posibilidad de tener comunicaciones interconectadas redundantes.</li>
+<li class="fragment">Se crea ARPANET, de donde luego se originaría la Internet que ahora conocemos.</li>
+</ul>
+</section>
+<section id="en-los-70s-y-80s" class="slide level2">
+<h2>En los 70s y 80s</h2>
+<ul>
+<li class="fragment">ARPANET se volvió popular, pero no tenía:
+<ul>
+<li class="fragment">Mecanismos se seguridad para las conexiones (via modem)</li>
+<li class="fragment">Métodos de identificación y autorización de usuarios</li>
+</ul></li>
+<li class="fragment">Al final de los 70s y los 80s, el potencial problema de seguridad aumenta con la aparición de los microprocesadores</li>
+<li class="fragment">Aparece el “Gusano de Morris” (también llamado el “Gusano de Internet”) en 1988</li>
+</ul>
+</section>
+<section id="rand-report-r-609" class="slide level2">
+<h2>Rand Report R-609</h2>
+<ul>
+<li class="fragment">Considerado el artículo que inició el estudio de seguridad en computación</li>
+<li class="fragment">El alcance creció para abarcar mas allá de las seguridad física, e incluir:
+<ul>
+<li class="fragment">Salvaguarda de los datos</li>
+<li class="fragment">Limitar acceso no autorizado</li>
+<li class="fragment">Consideración de una jerarquía de múltiples niveles de acceso dentro de una organización</li>
+</ul></li>
+</ul>
+</section>
+<section id="los-90s" class="slide level2">
+<h2>Los 90s</h2>
+<ul>
+<li class="fragment">Las redes de computadoras se convierten en algo mas común</li>
+<li class="fragment">La Internet como un red global de redes</li>
+<li class="fragment">Seguridad era considerada, aún, una característica de baja prioridad</li>
+</ul>
+</section>
+<section id="hoy" class="slide level2">
+<h2>Hoy</h2>
+<ul>
+<li class="fragment">El acceso a internet abarca también equipos móviles, IoTs, robots, etc.</li>
+<li class="fragment">Aún se tienen millones de equipos y servicios inseguros</li>
+<li class="fragment">Asegurar una computadora es un problema exponencial, si se toma en cuenta todos aquellos equipos y servicios con los cuales puede estar en contacto permanente o transitorio</li>
+</ul>
+</section></section>
+<section>
+<section id="conceptos" class="title-slide slide level1" data-background="img/conceptos-bg.jpg">
+<h1 data-background="img/conceptos-bg.jpg">Conceptos</h1>
+
+</section>
+<section id="seguridad" class="slide level2">
+<h2>Seguridad</h2>
+<ul>
+<li class="fragment">Es la cualidad o estado de estar seguro, de estar libre de peligro</li>
+<li class="fragment">En informática se consideran varios aspectos/capas:
+<ul>
+<li class="fragment">Seguridad física</li>
+<li class="fragment">Seguridad del personal</li>
+<li class="fragment">Seguridad de las operaciones</li>
+<li class="fragment">Seguridad de las comunicaciones</li>
+<li class="fragment">Seguridad de las redes de interconexión</li>
+<li class="fragment">Seguridad de la información</li>
+</ul></li>
+</ul>
+</section>
+<section id="información" class="slide level2">
+<h2>Información</h2>
+<ul>
+<li class="fragment">Comprende a los significados e interpretaciones que se hacen sobre los hechos o datos.</li>
+<li class="fragment">El valor de la información radica en las múltiples formas como esta se puede aplicar a una variedad de productos, servicios, etc.</li>
+<li class="fragment">Es un activo crítico y como tal debe de ser protegido contra riesgos</li>
+<li class="fragment">Características que afectan al valor de la información: escasez de la misma, y facilidad para compartirla</li>
+</ul>
+</section>
+<section id="qué-es-seguridad-de-la-información-infosec" class="slide level2">
+<h2>¿Qué es seguridad de la información? (InfoSec)</h2>
+<dl>
+<dt class="fragment">¿Qué es? (ISO/IEC 27000:2009)</dt>
+<dd class="fragment">“… la preservación de confidencialidad, integridad y disponibilidad de la información. …”
+</dd>
+</dl>
+<ul>
+<li class="fragment">La teoría, procedimientos y práctica cuyo objetivo es el prevenir el acceso, uso, divulgación, disrupción, modificación, inspección, registro o destrucción no autorizada de información.</li>
+</ul>
+</section>
+<section id="bases-de-seguridad-de-la-información" class="slide level2">
+<h2>Bases de seguridad de la información</h2>
+<p>“<em>InfoSec triad</em>”</p>
+<ul>
+<li class="fragment">Confidencialidad</li>
+<li class="fragment">Integridad</li>
+<li class="fragment">Disponibilidad</li>
+</ul>
+</section>
+<section id="confidencialidad" class="slide level2">
+<h2>Confidencialidad</h2>
+<dl>
+<dt class="fragment">¿Qué es?</dt>
+<dd class="fragment">La propiedad por la cual la información no está disponible o no se comunica a individuos, entidades o procesos no autorizados.
+</dd>
+</dl>
+<ul>
+<li class="fragment"><em>Ejemplo de pérdida de confidencialidad</em>: cuentas de usuarios incluyendo tarjetas de crédito que son expuestas por una brecha de seguridad en una tienda en línea.</li>
+</ul>
+</section>
+<section id="integridad" class="slide level2">
+<h2>Integridad</h2>
+<dl>
+<dt class="fragment">¿Qué es?</dt>
+<dd class="fragment">Implica el mantener y asegurar la exactitud y el estado de completitud de los datos, sobre todo su ciclo de vida, de manera que estos no pueden ser modificados en una forma no autorizada o indetectable.
+</dd>
+</dl>
+<ul>
+<li class="fragment"><em>Ejemplo de pérdida de integridad</em>: comunicación entre un usuario y su banco es interceptada, y la cuenta de destino de una transferencia es modificada sin que el usuario lo perciba.</li>
+</ul>
+</section>
+<section id="disponibilidad" class="slide level2">
+<h2>Disponibilidad</h2>
+<dl>
+<dt class="fragment">¿Qué es?</dt>
+<dd class="fragment">La condición de que la información esté accesible cuando sea necesario para cumplir su propósito. Implica que los sistemas de almacenamiento, procesamiento y de comunicación de la información funcionan correctamente.
+</dd>
+</dl>
+<ul>
+<li class="fragment"><em>Ejemplo de pérdida de disponibilidad</em>: cuando se “cayó” el servicio de WhatsApp hace unos días <code>:-)</code></li>
+</ul>
+</section>
+<section id="confianza-en-infosec" class="slide level2">
+<h2>Confianza en InfoSec</h2>
+<dl>
+<dt class="fragment">Autenticación</dt>
+<dd class="fragment">Asegurarse que eres quien dices ser
+</dd>
+<dt class="fragment">Autorización</dt>
+<dd class="fragment">Que puedes hacer, y bajo que condiciones
+</dd>
+<dt class="fragment">No repudiación</dt>
+<dd class="fragment">El no poder negar que hiciste algo
+</dd>
+</dl>
+</section>
+<section id="sistema-de-información" class="slide level2">
+<h2>Sistema de Información</h2>
+<ul>
+<li class="fragment">Un Sistema de Información es el conjunto de hardware, software, datos, personas, procedimientos, y redes de comunicación, que se necesitan para que usar información como un recurso en una organización.</li>
+</ul>
+</section>
+<section id="niveles-de-acción-de-infosec" class="slide level2">
+<h2>Niveles de acción de InfoSec</h2>
+<ul>
+<li class="fragment">Físico
+<ul>
+<li class="fragment">Infraestructura y equipos</li>
+</ul></li>
+<li class="fragment">Individual
+<ul>
+<li class="fragment">Afecta a las personas y sus interacciones</li>
+</ul></li>
+<li class="fragment">Organizacional
+<ul>
+<li class="fragment">Políticas globales dentro de la organización</li>
+<li class="fragment">Coordinación entre las diversas entidades internas y externas</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="riesgos-amenazas-y-conceptos-relacionados" class="title-slide slide level1" data-background="img/riesgos-bg.jpg">
+<h1 data-background="img/riesgos-bg.jpg">Riesgos, amenazas y conceptos relacionados</h1>
+
+</section>
+<section id="riesgos" class="slide level2">
+<h2>Riesgos</h2>
+<ul>
+<li class="fragment">Ocurren debido a la existencia potencial de una, o mas, debilidades que pueden ser empleadas para hacer peligrar a la información (<em>vulnerabilidad</em>).</li>
+<li class="fragment">El actor en un riesgo es la <em>amenaza</em>: cualquier cosa (hecha por el hombre, o acción de la naturaleza) que tiene el potencial de causar daño a los activos.</li>
+<li class="fragment">La probabilidad de que una <em>amenaza</em> pueda usar una <em>vulnerabilidad</em> para hacer peligrar a la información, genera un <em>riesgo</em>.</li>
+<li class="fragment">Un <em>incidente</em>, es un caso específico de explotación del riesgo.</li>
+</ul>
+</section>
+<section id="manejo-de-riesgos" class="slide level2">
+<h2>Manejo de riesgos</h2>
+<ul>
+<li class="fragment">Proceso de identificar los activos de información, sus valores intrínsecos para la institución, sus riesgos potenciales, y decidir como actuar al respecto.</li>
+<li class="fragment">Usualmente es fácil identificar los activos críticos, pero casi imposible el identificar todos los activos de información existentes, incluyendo los “legacy”.</li>
+<li class="fragment">Además, en la práctica no se pueden identificar todos los riesgos posibles, ni todas las posibles pérdidas debido a los que si se han identificado. Siempre hay un <em>riesgo residual</em>.</li>
+<li class="fragment">Es como hacer malabares con sierras eléctricas, de noche, con los ojos vendados y saltando en un pie.</li>
+</ul>
+</section>
+<section id="opciones-para-el-manejo-de-riesgo" class="slide level2">
+<h2>Opciones para el manejo de riesgo</h2>
+<ul>
+<li class="fragment">Se <strong>acepta el riesgo</strong>, basándose en el relativo bajo valor del activo, la relativa baja frecuencia de incidentes, y/o el posible bajo impacto de un ataque sobre la organización</li>
+<li class="fragment">Se <strong>mitiga el riesgo</strong>, seleccionando e implementando medidas apropiadas de control para reducir las superficie expuesta de ataque, asi como sus consecuencias</li>
+</ul>
+</section>
+<section id="opciones-para-el-manejo-de-riesgo-1" class="slide level2">
+<h2>Opciones para el manejo de riesgo</h2>
+<ul>
+<li class="fragment">Se <strong>transfiere el riesgo</strong>, a otra entidad al comprar un seguro contra intrusiones, o se puede hacer outsourcing del proceso completamente</li>
+<li class="fragment">La factibilidad y realidad de un riesgo puede estar en disputa, en esos casos se puede optar por <strong>rechazar o negar</strong> la posibilidad del mismo (no es lo mas recomendable)</li>
+</ul>
+</section>
+<section id="asegurando-los-componentes" class="slide level2">
+<h2>Asegurando los componentes</h2>
+<ul>
+<li class="fragment">Una computadora puede ser el sujeto de un ataque y/o el objeto del ataque
+<ul>
+<li class="fragment">Como sujeto: es la herramienta usada activamente para efectuar el ataque</li>
+<li class="fragment">Como objeto: es la entidad que está siendo atacada</li>
+</ul></li>
+<li class="fragment">Esto es extensible a cualquier equipo computacional accesible de una u otra forma</li>
+</ul>
+</section>
+<section id="balance-entre-seguridad-y-acceso" class="slide level2">
+<h2>Balance entre seguridad y acceso</h2>
+<ul>
+<li class="fragment">La seguridad perfecta y absoluta no existe – es un proceso continuo</li>
+<li class="fragment">Es un equilibrio entre la protección de la información y la disponibilidad de la misma</li>
+<li class="fragment">Lograr un balance implica que, se deben tener niveles de seguridad que permitan un acceso razonable, manteniendo la protección contra amenazas internas y externas</li>
+</ul>
+</section>
+<section id="controles-de-seguridad-administrativos" class="slide level2">
+<h2>Controles de seguridad: Administrativos</h2>
+<ul>
+<li class="fragment">Relacionado a los procedimientos, políticas, estándares y directivas de seguridad.</li>
+<li class="fragment">Incluye reglamentaciones internas a una organización, legislación general y específica del gobierno, estándares internacionales, y buenas prácticas.</li>
+<li class="fragment">Forman la base para la implementación de los controles lógicos y físicos.</li>
+</ul>
+</section>
+<section id="controles-de-seguridad-lógicos" class="slide level2">
+<h2>Controles de seguridad: Lógicos</h2>
+<ul>
+<li class="fragment">Conocidos también como controles técnicos</li>
+<li class="fragment">Usan software y datos para supervisar y controlar el acceso a la información, asi como a los sistemas de computación.</li>
+<li class="fragment">Se implementan en forma de claves de acceso, firewalls, sistemas de detección de intrusiones, listas de control de acceso, controles de cifrado de datos, etc.</li>
+<li class="fragment">Concepto clave: el <em>principio del menor privilegio</em> – dar sólo el nivel de acceso suficiente para ejecutar la acción.</li>
+</ul>
+</section>
+<section id="controles-de-seguridad-físicos" class="slide level2">
+<h2>Controles de seguridad: Físicos</h2>
+<ul>
+<li class="fragment">Supervisión y control del ambiente de trabajo y de las instalaciones de de cómputo, incluyendo el acceso directo a las mismas</li>
+<li class="fragment">Se consideran dentro de estos controles: puertas, cerraduras, aire acondicionado, alarmas, sistemas de supresión de incendios, cameras de vigilancia, barreras físicas, separación de zonas de trabajo y de cómputo, etc.</li>
+<li class="fragment">Concepto clave: la <em>separación de deberes</em> – una sola persona no debe de poder completar todos los aspectos de una tarea crítica.</li>
+</ul>
+</section>
+<section id="defensa-en-profundidad" class="slide level2">
+<h2>Defensa en profundidad</h2>
+<figure>
+<img data-src="img/defense-in-depth.png" alt="" /><figcaption>Modelo de capas de defensa informática</figcaption>
+</figure>
+</section>
+<section id="clasificación-de-la-información" class="slide level2">
+<h2>Clasificación de la información</h2>
+<ul>
+<li class="fragment">En el sector privado se clasifica como: Pública, Sensible, Privada y Confidencial</li>
+<li class="fragment">En el sector público se usa: Sin clasificación, No oficial, Protegida/Reservada, Confidencial, Secreta, Secreto Máximo</li>
+<li class="fragment">En algunos casos se usa un “Protocolo de semáforo”: Blanco, Verde, Amarillo y Rojo</li>
+<li class="fragment">La asignación de una clasificación puede y debe de ser revisada periódicamente pues las condiciones pueden haber cambiado</li>
+</ul>
+</section></section>
+<section id="intermedio" class="title-slide slide level1" data-background="img/intermedio-bg.jpg">
+<h1 data-background="img/intermedio-bg.jpg">Intermedio</h1>
+
+</section>
+
+<section>
+<section id="seguridad-como-fundamento" class="title-slide slide level1" data-background="img/seguridad-bg.jpg">
+<h1 data-background="img/seguridad-bg.jpg">Seguridad como fundamento</h1>
+
+</section>
+<section id="modelo-de-abajo-hacia-arriba" class="slide level2">
+<h2>Modelo de abajo hacia arriba</h2>
+<ul>
+<li class="fragment">Un esfuerzo desde las bases: los administradores de sistemas intentan mejorar la seguridad de los sistemas bajo su responsabilidad</li>
+<li class="fragment">Ventaja principal: la pericia técnica de los administradores individuales</li>
+<li class="fragment">Rara vez funciona, pues carece de
+<ul>
+<li class="fragment">Participación coordinada de otros actores</li>
+<li class="fragment">Soporte organizacional para su continuidad</li>
+</ul></li>
+</ul>
+</section>
+<section id="modelo-de-arriba-hacia-abajo" class="slide level2">
+<h2>Modelo de arriba hacia abajo</h2>
+<ul>
+<li class="fragment">Es iniciada por las jerarquías altas de las administración
+<ul>
+<li class="fragment">Se generan políticas, procedimientos y reglamentos</li>
+<li class="fragment">Definen objetivos y resultados esperados</li>
+<li class="fragment">Determinan la responsabilidad para cada acción requerida</li>
+</ul></li>
+<li class="fragment">Para tener éxito, necesita un estrategia formal de desarrollo, también conocida como el “ciclo de vida de desarrollo de sistemas”</li>
+</ul>
+</section>
+<section id="ciclo-de-vida-de-un-sistema" class="slide level2">
+<h2>Ciclo de vida de un sistema</h2>
+<ul>
+<li class="fragment">Es una metodología formal para resolver problemas en base a una secuencia estructurada de procedimientos</li>
+<li class="fragment">Usando esta metodología se asegura un proceso riguroso, y se evita el saltarse pasos</li>
+<li class="fragment">El objetivo es crear un proceso exhaustivo de seguridad</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="img/sdlc2-wikimedia.resized.jpg" alt="" /><figcaption>SDLC: System Development Life Cycle</figcaption>
+</figure>
+</section>
+<section id="requerimientos" class="slide level2">
+<h2>Requerimientos</h2>
+<ul>
+<li class="fragment">Identificar que problemas se quieren solucionar</li>
+<li class="fragment">Definir objetivos, restricciones y alcance del sistema</li>
+<li class="fragment">Análisis costo-beneficio preliminar</li>
+<li class="fragment">Se determina la factibilidad técnica, económica, y su impacto en el quehacer diario de la organización</li>
+</ul>
+</section>
+<section id="diseño" class="slide level2">
+<h2>Diseño</h2>
+<ul>
+<li class="fragment">Se definen los parámetros físicos y lógicos que serán necesarios</li>
+<li class="fragment">Tipo y estructura de datos que soporten la funcionalidad esperada</li>
+<li class="fragment">Se definen niveles y condicione de acceso</li>
+<li class="fragment">Tecnologías de software, hardware y comunicaciones que se necesitarán</li>
+<li class="fragment">Integración con otros sistemas pre-existentes</li>
+</ul>
+</section>
+<section id="implementación" class="slide level2">
+<h2>Implementación</h2>
+<ul>
+<li class="fragment">Se aprovisionan los equipos computacionales necesarios</li>
+<li class="fragment">Creación y desarrollo del software</li>
+<li class="fragment">Se van construyendo manuales de usuario, administración, desarrollo/manteninimiento, instalación, etc.</li>
+</ul>
+</section>
+<section id="pruebas" class="slide level2">
+<h2>Pruebas</h2>
+<ul>
+<li class="fragment">Se hacen pruebas funcionales y no funcionales, en forma interna y con los usuarios del sistema</li>
+<li class="fragment">Pruebas de seguridad (ethical hacking)</li>
+<li class="fragment">Pruebas de carga, escalabilidad y disponibilidad</li>
+</ul>
+</section>
+<section id="evolución" class="slide level2">
+<h2>Evolución</h2>
+<ul>
+<li class="fragment">Cambios y mejoras en función a las pruebas</li>
+<li class="fragment">Mantenimiento del sistema y resolución de fallas</li>
+<li class="fragment">Aparecen nuevos problemas, integraciones o necesidades… y el ciclo continúa</li>
+</ul>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="img/sdlc-wikimedia.jpg" alt="" /><figcaption>SDLC: System Development Life Cycle (Modelo complejo)</figcaption>
+</figure>
+</section>
+<section id="ethical-hacking" class="slide level2">
+<h2>Ethical Hacking</h2>
+<ul>
+<li class="fragment">Actividades para encontrar vulnerabilidades en un sistema, incluyen:
+<ul>
+<li class="fragment">Greybox / Blackbox testing (“Pentesting”)</li>
+<li class="fragment">Side-channel exploitation</li>
+<li class="fragment">Escalamiento de privilegios</li>
+<li class="fragment">Ingeniería Social (Social Engineering)</li>
+</ul></li>
+<li class="fragment">Ejemplo: <a href="https://www.youtube.com/watch?v=lc7scxvKQOo" class="uri">https://www.youtube.com/watch?v=lc7scxvKQOo</a></li>
+</ul>
+</section>
+<section id="criptografía" class="slide level2">
+<h2>Criptografía</h2>
+<ul>
+<li class="fragment">Cifrar información para restringir el acceso a terceros</li>
+<li class="fragment">Esteganografía, scytale, cifrados por transposición, OTPs, etc.</li>
+<li class="fragment">Cifrado simétrico: la misma “clave” cifra y descifra la información</li>
+<li class="fragment">Cifrado asimétrico: la clave de cifrado es distinta a la de descifrado, pero ambas estan relacionadas por una operación matemática</li>
+</ul>
+</section>
+<section id="uso-de-criptografía" class="slide level2">
+<h2>Uso de criptografía</h2>
+<ul>
+<li class="fragment">Firma digital de documentos (PKI)</li>
+<li class="fragment">Cifrado de archivos (AES 256)</li>
+<li class="fragment">Asegurar intercambio privado de información (HTTPS, SSH, etc.)</li>
+<li class="fragment">Autenticación con múltiples factores (MFA)</li>
+<li class="fragment">Restricción de uso o acceso a medios/software/hardware (DRM)</li>
+<li class="fragment">Registro auditable y distribuído de transacciones (Blockchain)</li>
+</ul>
+</section></section>
+<section>
+<section id="ejemplos" class="title-slide slide level1" data-background="img/ejemplos-bg.jpg">
+<h1 data-background="img/ejemplos-bg.jpg">Ejemplos</h1>
+
+</section>
+<section id="malware" class="slide level2">
+<h2>Malware</h2>
+<ul>
+<li class="fragment">Software malicioso que trata de interferir en la operación de una computadora o equipo móvil, extraer información confidencial, conseguir accesos no autorizados, o mostrar avisos no deseados.</li>
+<li class="fragment">Worms, virus, troyanos, spyware, keyloggers, RATs, etc.</li>
+<li class="fragment">Algunos contienen multiples “cargas” o componentes, y se esconden de los sistemas de detección</li>
+<li class="fragment">Existen los creados por amateurs, profesionales y naciones</li>
+<li class="fragment">Algunos convierten a tus equipos en “zombies” o “bots” controlados por terceros</li>
+</ul>
+</section>
+<section id="caso-el-catálogo-espía-de-tao-nsa" class="slide level2">
+<h2>Caso: El catálogo espía de TAO (NSA)</h2>
+<ul>
+<li class="fragment">Un conjunto de “implantes” de hardware y herramientas de software, diseñados para la intervención de comunicaciones, control remoto de equipos, y actividades de ciber-vigilancia</li>
+<li class="fragment">En el 2013, <em>Der Spiegel</em> publicó el catálogo clasificado de implantes de hardware. Snowden ya había publicado información acerca de herramientas de software usadas en NSA.</li>
+</ul>
+</section>
+<section id="caso-el-catálogo-espía-de-tao-nsa-1" class="slide level2">
+<h2>Caso: El catálogo espía de TAO (NSA)</h2>
+<ul>
+<li class="fragment">Mas detalles en <em>Der Spiegel</em>:
+<ul>
+<li class="fragment"><a href="http://www.spiegel.de/international/world/catalog-reveals-nsa-has-back-doors-for-numerous-devices-a-940994.html">Shopping for Spy Gear – Catalog Advertises NSA Toolboxi</a></li>
+<li class="fragment"><a href="http://www.spiegel.de/international/world/the-nsa-uses-powerful-toolbox-in-effort-to-spy-on-global-networks-a-940969.html">Documents Reveal Top NSA Hacking Unit</a></li>
+</ul></li>
+<li class="fragment"><a href="https://leaksource.wordpress.com/2013/12/30/nsas-ant-division-catalog-of-exploits-for-nearly-every-major-software-hardware-firmware/">El catálogo</a> en Leaksource</li>
+</ul>
+</section>
+<section id="ransomware" class="slide level2">
+<h2>Ransomware</h2>
+<ul>
+<li class="fragment">Un tipo especial de malware que en forma oculta va cifrando (asimétricamente) la información en una computadora.</li>
+<li class="fragment">Luego extorsionan a la víctima, amenazando que si no pagan una cantidad determinada toda la información será borrada.</li>
+<li class="fragment">Es el modo de ataque por malware mas “rentable” (a nivel de usuarios individuales) desde el 2015</li>
+</ul>
+</section>
+<section id="caso-hospitales-atacados-por-ransomware" class="slide level2">
+<h2>Caso: Hospitales atacados por ransomware</h2>
+<ul>
+<li class="fragment">Aproximadamente el 88% de los ataques a instituciones en el 2016 fueron a hospitales (<a href="http://www.beckershospitalreview.com/healthcare-information-technology/hospitals-are-hit-with-88-of-all-ransomware-attacks.html">Hospitals are hit with 88% of all ransomware attacks</a>)</li>
+<li class="fragment">Los hospitales tienden a pagar para no perder la información de sus pacientes, y evitar consecuencias graves o fatales para los mismos</li>
+</ul>
+</section>
+<section id="caso-hospitales-atacados-por-ransomware-1" class="slide level2">
+<h2>Caso: Hospitales atacados por ransomware</h2>
+<ul>
+<li class="fragment">Son el “objetivo perfecto” para estos ataques, debido a la gran superficie de vulnerabilidad que suponen los datos de salud de los pacientes, asi como los administrativos.</li>
+<li class="fragment">Mas detalles en:
+<ul>
+<li class="fragment"><a href="https://www.wired.com/2016/03/ransomware-why-hospitals-are-the-perfect-targets/">Why Hospitals Are the Perfect Targets for Ransomware</a></li>
+<li class="fragment"><a href="http://www.telegraph.co.uk/news/2017/01/13/largest-nhs-trust-hit-cyber-attack/">Largest NHS trust hit by cyber attack</a></li>
+<li class="fragment"><a href="http://resources.infosecinstitute.com/category/healthcare-information-security/healthcare-attack-statistics-and-case-studies/ransomware-case-studies-hollywood-presbyterian-and-the-ottawa-hospital/#gref">Ransomware Case Studies: Hollywood Presbyterian And The Ottawa Hospital</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="phishing" class="slide level2">
+<h2>Phishing</h2>
+<ul>
+<li class="fragment">Ataques cuyo objetivo es el conseguir credenciales de acceso para una cuenta (generalmente) de correo electrónico o de tarjeta de banco/crédito</li>
+<li class="fragment">Las cuentas de email son usadas luego en otros ataques, para envío de SPAM, distribución de malware, etc.</li>
+<li class="fragment">Existe una variante llamada “Spear-Phishing” que son ataques selectivos y dirigidos a una persona o perfil específico de usuario</li>
+<li class="fragment">Hace uso de ingeniería social para conseguir sus fines</li>
+</ul>
+</section>
+<section id="caso-ataque-de-phishing-a-usuarios-de-gmail" class="slide level2">
+<h2>Caso: Ataque de Phishing a usuarios de Gmail</h2>
+<ul>
+<li class="fragment">Un malware se hace pasar como un adjunto de Google Docs</li>
+<li class="fragment">Al ir al enlace, se imita a la interfaz de Google Docs/Drive</li>
+<li class="fragment">Pide a los usuarios que le de permisos para poder acceder al documento</li>
+<li class="fragment">Estos permisos permiten al malware tomar control total de la cuenta de correos</li>
+<li class="fragment">Mas detalles en:
+<ul>
+<li class="fragment"><a href="http://www.nbcnews.com/tech/security/massive-phishing-attack-targets-millions-gmail-users-n754501">Massive Phishing Attack Targets Gmail Users</a> (Noticia del 4 de mayo del 2017)</li>
+</ul></li>
+</ul>
+</section>
+<section id="rastreo-de-usuarios-privacidad" class="slide level2">
+<h2>Rastreo de usuarios (Privacidad)</h2>
+<ul>
+<li class="fragment">Facebook sabe quienes son tus amigos y parientes</li>
+<li class="fragment">Google sabe que sitios visitas</li>
+<li class="fragment">Soundcloud y Spotify saben que música te agrada</li>
+<li class="fragment">… y un largo etc.</li>
+<li class="fragment">Recuerda: <strong>si no pagas por un servicio, tú eres la mercancía</strong></li>
+</ul>
+</section>
+<section id="caso-rastreo-usando-ultrasonido" class="slide level2">
+<h2>Caso: Rastreo usando ultrasonido</h2>
+<p><small></p>
+<blockquote>
+<p>In summary, an adversary is able to obtain a detailed, comprehensive user profile by creating an ultrasonic side channel between the mobile device and an audio sender. Our case study on three commercial ultrasonic tracking technologies reveals that the outlined tracking mechanisms are not a theoretical threat, but actively deployed (e.g. Shopkick and Lisnr) or at least in the process of being deployed (e.g. SilverPush).</p>
+</blockquote>
+<p>De: <a href="http://christian.wressnegger.info/content/projects/sidechannels/2017-eurosp.pdf">“Privacy Threats through Ultrasonic Side Channels on Mobile Devices”</a> (Daniel Arp, Erwin Quiring, Christian Wressnegger &amp; Konrad Rieck)</small></p>
+</section>
+<section id="caso-rastreo-usando-ultrasonido-1" class="slide level2">
+<h2>Caso: Rastreo usando ultrasonido</h2>
+<figure>
+<img data-src="img/ultrasound-tracking1.png" alt="" /><figcaption>Rastreo de usuarios</figcaption>
+</figure>
+</section>
+<section id="caso-rastreo-usando-ultrasonido-2" class="slide level2">
+<h2>Caso: Rastreo usando ultrasonido</h2>
+<figure>
+<img data-src="img/ultrasound-tracking2.png" alt="" /><figcaption>Localización y de-anonimización de usuarios</figcaption>
+</figure>
+</section>
+<section id="ddos" class="slide level2">
+<h2>DDOS</h2>
+<ul>
+<li class="fragment"><strong>D</strong>istributed <strong>D</strong>enial <strong>O</strong>f <strong>S</strong>ervice</li>
+<li class="fragment">El objetivo es saturar al máximo un recurso para que otros no lo puedan usar</li>
+<li class="fragment">Los ataques mas recientes se hacen desde botnets alrededor del mundo</li>
+<li class="fragment">En ocasiones es usado como una distracción de otros ataques mas directos</li>
+<li class="fragment">Algunos han sobrepasado 1 Tbps (1 Terabit por segundo)</li>
+</ul>
+</section>
+<section id="caso-ataque-a-grupo-pro-democracia-en-hong-kong" class="slide level2">
+<h2>Caso: Ataque a grupo Pro-Democracia en Hong Kong</h2>
+<ul>
+<li class="fragment">Ocurrió en Noviembre del 2014 y superó los 500 Gbps</li>
+<li class="fragment">El ataque tenía como objetivo el anular el acceso a PopVote.hk</li>
+<li class="fragment">Grupo relacionado al movimiento “Occupy Central” de Hong Kong</li>
+<li class="fragment">Mas información en:
+<ul>
+<li class="fragment"><a href="https://www.forbes.com/sites/parmyolson/2014/11/20/the-largest-cyber-attack-in-history-has-been-hitting-hong-kong-sites/#29fdb79138f6%22">The Largest Cyber Attack In History Has Been Hitting Hong Kong Sites</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="caso-ataque-a-ovh" class="slide level2">
+<h2>Caso: Ataque a OVH</h2>
+<ul>
+<li class="fragment">Ocurrió en Setiembre del 2016 y superó 1 Tbps</li>
+<li class="fragment">Fué lanzado desde aprox. 152,000 equipos IoT comprometidos</li>
+<li class="fragment">La víctima fué una compañía de hosting de sitios web</li>
+<li class="fragment">El culpable fué una compañía que ofrecía sus “servicios” al mejor postor</li>
+</ul>
+</section>
+<section id="caso-ataque-dyndns" class="slide level2">
+<h2>Caso: Ataque DynDNS</h2>
+<ul>
+<li class="fragment">Ocurrió en Octubre del 2016 y también supero 1.2 Tbps</li>
+<li class="fragment">Se lanzo desde un subconjunto de la botnet Mirai</li>
+<li class="fragment">Esta botnet tiene un estimado de 500,000 a 550,000 nodos</li>
+<li class="fragment">Afectó seriamente los servicios de internet a nivel mundial</li>
+</ul>
+</section>
+<section id="mapas-de-amenazas-y-ataques" class="slide level2" data-background-iframe="https://threatmap.checkpoint.com/">
+<h2 data-background-iframe="https://threatmap.checkpoint.com/">Mapas de Amenazas y Ataques</h2>
+<ul>
+<li class="fragment"><a href="https://threatmap.checkpoint.com/">Checkpoint Live Threat Map</a></li>
+<li class="fragment"><a href="https://cybermap.kaspersky.com/">Cyberthreat Real-Time Map</a></li>
+<li class="fragment"><a href="https://www.fireeye.com/cyber-map/threat-map.html">FireEye Cyberthreat Map</a></li>
+<li class="fragment"><a href="http://map.norsecorp.com/">Norse Attack Map</a></li>
+<li class="fragment"><a href="https://www.lookingglasscyber.com/resources/threatmap/">Looking Glass Threat Map</a></li>
+<li class="fragment"><a href="http://www.digitalattackmap.com/">Google Digital Attack Map</a></li>
+<li class="fragment">… etc.</li>
+</ul>
+</section>
+<section id="algunas-estadísticas-sobre-ataques" class="slide level2">
+<h2>Algunas estadísticas sobre ataques</h2>
+<ul>
+<li class="fragment">DDOS: de 196 Gbps en 2015 a 1.2 Tbps en 2016 (fuente: <a href="http://www.computerweekly.com/news/4500250283/Average-DDoS-attack-size-increasing-Arbor-warns-businesses">Average DDoS attack size increasing, Arbor warns businesses</a>)</li>
+<li class="fragment">Algunos ataques duran minutos, otros semanas o meses</li>
+<li class="fragment">Cibercrimen: de un 67% en 2015 a 72% en 2016 (fuente: <a href="http://www.hackmageddon.com/2017/01/19/2016-cyber-attacks-statistics/">2016 Cyber Attacks Statistics</a>)</li>
+<li class="fragment">Hacktivism: de ~21% en 2015 a 14% en 2016</li>
+</ul>
+</section></section>
+<section>
+<section id="conclusiones" class="title-slide slide level1" data-background="img/conclusiones-bg.jpg">
+<h1 data-background="img/conclusiones-bg.jpg">Conclusiones</h1>
+
+</section>
+<section id="seguridad-de-la-información" class="slide level2">
+<h2>Seguridad de la información</h2>
+<ul>
+<li class="fragment">Es un proceso continuo que trata de asegurar que los riesgos y controles están balanceados</li>
+<li class="fragment">Necesariamente es un aspecto crítico en todo Sistema de información</li>
+<li class="fragment">Se requieren múltiples capas y dimensiones de seguridad: física, individual, de operaciones, comunicaciones, redes, información, etc.</li>
+</ul>
+</section>
+<section id="seguridad-de-la-información-1" class="slide level2">
+<h2>Seguridad de la información</h2>
+<ul>
+<li class="fragment">Se tiene que considerar siempre el balance entre la protección de los activos, y la necesidad de acceder a ellos</li>
+<li class="fragment">El manejo debe ser metódico y programado, no improvisado, con la participación de muchos actores en una organización</li>
+<li class="fragment">Es crítico el educar e informar a las personas, pues son el punto mas débil en la mayoría de sistemas de información</li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="20170506-seguridad-informacion_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="20170506-seguridad-informacion_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+
+
+        chalkboard: {
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '20170506-seguridad-informacion_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+        ]
+      });
+    </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
