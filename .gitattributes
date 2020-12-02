@@ -1,7 +1,8 @@
 # to ignore the generated artifacts
-*.html linguist-documentation
-*.js linguist-documentation
-*.css linguist-documentation
+*.html linguist-generated
+*.js linguist-vendored
+*.css linguist-vendored
+*.scss linguist-vendored
 # some patterns from https://github.com/alexkaratarakis/gitattributes/
 *.Rdata binary
 *.RData binary
