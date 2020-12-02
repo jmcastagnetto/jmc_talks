@@ -1,4 +1,7 @@
+# to ignore the generated artifacts
 *.html linguist-documentation
+*.js linguist-documentation
+*.css linguist-documentation
 # some patterns from https://github.com/alexkaratarakis/gitattributes/
 *.Rdata binary
 *.RData binary
