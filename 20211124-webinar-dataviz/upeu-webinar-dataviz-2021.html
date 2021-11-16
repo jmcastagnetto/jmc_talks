@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Jesús M. Castagnetto, Ph.D." />
+  <title>Ciencia de Datos y Visualización</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="upeu-webinar-dataviz-2021_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="upeu-webinar-dataviz-2021_files/reveal.js-3.3.0.1/css/theme/night.css" id="theme">
+
+<style type="text/css">
+.reveal section img {
+  background: rgba(255, 255, 255, 0.85);
+}
+</style>
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="my-reveal-style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="upeu-webinar-dataviz-2021_files/header-attrs/header-attrs.js"></script>
+    <link href="upeu-webinar-dataviz-2021_files/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="upeu-webinar-dataviz-2021_files/font-awesome/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+<div class = "my-header">
+Ciencia de Datos y Visualización (UPEU) // Jesús M. Castagnetto // 2020-11-24 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+  <div class="reveal">
+    <div class="slides">
+
+<section data-background-image="assets/animated-bg-globe-links.gif">
+    <h1 class="title">Ciencia de Datos y Visualización</h1>
+    <h2 class="author">Jesús M. Castagnetto, Ph.D.</h2>
+    <h3 class="date">2020-11-24, UPEU</h3>
+</section>
+
+<section>
+<section id="datos" class="title-slide slide level1">
+<h1>Datos</h1>
+
+</section>
+<section id="usamos-datos-para" class="slide level2">
+<h2>Usamos datos para:</h2>
+<ul>
+<li>Responder preguntas concretas</li>
+<li>Explorar relaciones entre variables</li>
+<li>Descubrir patrones</li>
+<li>Tomar decisiones</li>
+<li>Automatizar procesos</li>
+<li>Validar observaciones y experimentos</li>
+<li>Contar una historia</li>
+</ul>
+</section>
+<section id="datos-masivos-big-data" class="slide level2">
+<h2>Datos masivos (“Big Data”)</h2>
+<ul>
+<li>Retos en el manejo de cantidades ingentes de datos</li>
+<li>Características:
+<ul>
+<li>Volumen (cantidad de datos generados y/o almacenados)</li>
+<li>Velocidad (frecuencia con que renuevan/aparecen)</li>
+<li>Variedad (multiplicidad de fuentes y formatos)</li>
+<li>Variabilidad (inconsistencias o cambios en el tiempo)</li>
+<li>Veracidad (calidad de los datos)</li>
+</ul></li>
+</ul>
+</section>
+<section id="datos-masivos-lhc" class="slide level2">
+<h2>Datos masivos: LHC</h2>
+<ul>
+<li>LHC (Large Hadron Collider)
+<ul>
+<li>150 millones de sensores, generando datos 40 millones de veces por segundo.</li>
+<li>600 millones de colisiones por segundo
+<ul>
+<li>Se filtra ~99.99995% ⇒ se graban solo 1,000 colisiones de interés por segundo</li>
+</ul></li>
+<li>El volumen anual es de 25 petabytes antes de replicación, y 200 petabytes después de replicar.</li>
+<li>Sin filtrar se excedería los <strong>500 exabytes por día</strong>.</li>
+</ul></li>
+<li><em>Como referencia</em>:
+<ul>
+<li>1 exabyte = 1,000 petabytes = 1’000,000 terabytes = 1,000’000,000 gigabytes = <span class="math inline">\(10^{18}\)</span> bytes</li>
+</ul></li>
+</ul>
+</section>
+<section id="datos-masivos-redes-sociales" class="slide level2">
+<h2>Datos masivos: Redes sociales</h2>
+<ul>
+<li>Facebook tiene más de 50,000 millones de fotos, con más de 2,000 millones de usuarios activos</li>
+<li>En Twitter: en promedio unos 6,000 tweets por segundo (~ 500 millones al día)</li>
+<li>Instagram: más de 70 millones de fotos por día, más de 800 millones de usuarios activos</li>
+<li>YouTube: más de 2,000 millones de usuarios, 500 horas de video subidas cada minuto (~720,000 horas al día = 82.2 años de videos por día)</li>
+</ul>
+</section>
+<section id="ciencia-de-datos" class="slide level2">
+<h2>Ciencia de datos</h2>
+<blockquote>
+<p>All models are wrong, but some are useful <br/><br/> <cite>– George Box</cite></p>
+</blockquote>
+<p>[Todos los modelos son incorrectos, pero algunos son útiles]</p>
+</section>
+<section id="ciencia-de-datos-1" class="slide level2">
+<h2>Ciencia de datos</h2>
+<ul>
+<li>Un campo interdisciplinario que trata de extraer conocimiento o ideas nuevas de los datos.</li>
+<li>Los datos pueden
+<ul>
+<li>Provenir de múltiples fuentes</li>
+<li>Tener diversos niveles de calidad</li>
+<li>Ser completos o parciales</li>
+<li>Estar estructurados o no estructurados, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="qué-se-necesita-conocer" class="slide level2">
+<h2>Qué se necesita conocer</h2>
+<ul>
+<li>Manipulación, limpieza y transformación de datos</li>
+<li>Bases de datos estructuradas y no estructuradas</li>
+<li>Estadística y matemáticas</li>
+<li>Aprendizaje de máquina (Machine Learning)</li>
+<li>Programación de software
+<ul>
+<li>Especialmente en lenguajes de análisis de datos (R, Python, Julia, etc.)</li>
+</ul></li>
+<li>Visualización de datos y comunicación</li>
+</ul>
+</section>
+<section id="el-camino-de-la-ciencia-de-datos" class="slide level2">
+<h2>El camino de la Ciencia de Datos</h2>
+<p><small> <em>Fuente</em>: <a href="http://nirvacana.com/thoughts/2013/07/08/becoming-a-data-scientist/" class="uri">http://nirvacana.com/thoughts/2013/07/08/becoming-a-data-scientist/</a> </small></p>
+<p><img src="assets/RoadToDataScientist1.png" width="70%" /></p>
+</section>
+<section id="componentes" class="slide level2">
+<h2>Componentes</h2>
+<ul>
+<li>Fuentes
+<ul>
+<li>Estructuradas y no estructuradas</li>
+<li>Fijas, variables o periódicas</li>
+</ul></li>
+<li>Recopilación
+<ul>
+<li>Extracción e importación</li>
+<li>Limpieza de datos</li>
+</ul></li>
+<li>Exploración
+<ul>
+<li>Transformación de datos</li>
+<li>Visualización/Análisis Exploratorio de Datos</li>
+<li>Modelamiento</li>
+</ul></li>
+<li>Mostrar resultados
+<ul>
+<li>Reportes y visualizaciones (interactivas o no)</li>
+<li>Comparaciones, tendencias, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="flujo-de-trabajo-en-ciencia-de-datos" class="slide level2">
+<h2>Flujo de trabajo en Ciencia de Datos</h2>
+<p><img src="assets/flujo-ciencia-de-datos.png" width="80%" /></p>
+</section>
+<section id="ejemplo-clasificación-de-pingüinos-de-palmer" class="slide level2">
+<h2>Ejemplo: Clasificación de Pingüinos de Palmer</h2>
+<ul>
+<li>Tres especies: Adelie, Chinstrap y Gentoo</li>
+<li>Datos sobre:
+<ul>
+<li>Longitud y ancho del pico (en mm)</li>
+<li>Longitud de la aleta (en mm)</li>
+<li>Peso corporal (en gr)</li>
+<li>Sexo (female, male)</li>
+<li>También: Isla y año del registro</li>
+</ul></li>
+</ul>
+<p><img src="assets/logo-palmerpenguin.png" width="120" height="15%" style="display: block; margin: auto 0 auto auto;" /></p>
+<p><em>Fuente</em>: <a href="https://allisonhorst.github.io/palmerpenguins/" class="uri">https://allisonhorst.github.io/palmerpenguins/</a></p>
+</section>
+<section id="distribución-de-especies-en-los-datos" class="slide level2">
+<h2>Distribución de especies en los datos</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-4-1.png" width="768" /></p>
+</section>
+<section id="las-tres-especies-de-pingüinos" class="slide level2">
+<h2>Las tres especies de pingüinos</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-5-1.png" width="768" /></p>
+</section>
+<section id="un-modelo-de-clasificación" class="slide level2">
+<h2>Un modelo de clasificación</h2>
+<ul>
+<li>Separamos aleatoriamente a los datos: 75% para entrenar el modelo, y 25% para probar el modelo.</li>
+<li>Usamos el algoritmo Random Forest, con validación cruzada repetida, por 3 veces</li>
+<li>Usaremos el modelo siguiente:
+<ul>
+<li>Especie –&gt; f(long. pico, ancho pico, long. aleta, peso)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">13579</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> penguins <span class="sc">%&gt;%</span> <span class="fu">select</span>(species, <span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># entrenamos con 75% de datos, probamos con 25%</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(df<span class="sc">$</span>species, <span class="at">p=</span><span class="fl">0.75</span>, <span class="at">list=</span><span class="cn">FALSE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins_train <span class="ot">&lt;-</span> df[index,]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins_test <span class="ot">&lt;-</span> df[<span class="sc">-</span>index,]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># hacemos validación cruzada, repetida, por 3 veces</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>, <span class="at">repeats =</span> <span class="dv">3</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>model_rf <span class="ot">&lt;-</span> <span class="fu">train</span>(<span class="at">x =</span> penguins_train[, <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">y =</span> penguins_train<span class="sc">$</span>species,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">&quot;rf&quot;</span>, <span class="at">preProcess =</span> <span class="fu">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">trControl =</span> ctrl, <span class="at">tuneLength =</span> <span class="dv">20</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># aplicamos el model a los datos de prueba</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>penguins_test<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model_rf, penguins_test[, <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>])</span></code></pre></div>
+</section>
+<section id="eficiencia-del-modelo" class="slide level2">
+<h2>Eficiencia del modelo</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-7-1.png" width="768" /></p>
+</section></section>
+<section>
+<section id="visualización" class="title-slide slide level1">
+<h1>Visualización</h1>
+
+</section>
+<section id="a-tomar-en-cuenta-al-visualizar-datos" class="slide level2">
+<h2>A tomar en cuenta al visualizar datos</h2>
+<blockquote>
+<p>Graphical excellence consists of complex ideas communicated with clarity, precision and efficiency.</p>
+<p><cite>– Edward Tufte<cite></p>
+</blockquote>
+</section>
+<section id="características-de-una-visualización" class="slide level2">
+<h2>Características de una visualización</h2>
+<ul>
+<li>Mapear datos a los aspectos de un gráfico:
+<ul>
+<li>Posición, forma, tamaño, color, grosor y tipo de líneas</li>
+</ul></li>
+</ul>
+<p><img src="assets/common-aesthetics-1.png" width="576" /></p>
+<p><em>Fuente</em>: <a href="https://serialmentor.com/dataviz/aesthetic-mapping.html" class="uri">https://serialmentor.com/dataviz/aesthetic-mapping.html</a></p>
+</section>
+<section id="objetivos-de-la-visualización-de-datos" class="slide level2">
+<h2>Objetivos de la visualización de datos</h2>
+<ul>
+<li>Hacer comparaciones</li>
+<li>Mostrar una (posible) causalidad</li>
+<li>Mostrar múltiples piezas de información</li>
+<li>Integrar gráficos y anotaciones para una mejor comprensión</li>
+<li>Educar, informar, hacer cambiar de opinión, etc.</li>
+</ul>
+</section>
+<section id="visualizar-cantidades" class="slide level2">
+<h2>Visualizar cantidades</h2>
+<p><img src="assets/amounts-1.png" width="686" /> <img src="assets/amounts_multi-1.png" width="686" height="60%" /></p>
+<p><small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/directory-of-visualizations.html" class="uri">https://serialmentor.com/dataviz/directory-of-visualizations.html</a> </small></p>
+</section>
+<section id="visualizar-distribuciones" class="slide level2">
+<h2>Visualizar distribuciones</h2>
+<p><img src="assets/single-distributions-1.png" width="686" /></p>
+<p><img src="assets/multiple-distributions-1.png" width="686" height="60%" /></p>
+<p><small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/directory-of-visualizations.html" class="uri">https://serialmentor.com/dataviz/directory-of-visualizations.html</a> </small></p>
+</section>
+<section id="visualizar-proporciones" class="slide level2">
+<h2>Visualizar proporciones</h2>
+<p><img src="assets/proportions-1.png" width="686" height="60%" /><img src="assets/proportions-comp-1.png" width="686" height="60%" /><img src="assets/proportions-multi-1.png" width="686" height="60%" /></p>
+<p><small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/directory-of-visualizations.html" class="uri">https://serialmentor.com/dataviz/directory-of-visualizations.html</a> </small></p>
+</section>
+<section id="visualizar-relacionex-x-y" class="slide level2">
+<h2>Visualizar relacionex “x-y”</h2>
+<p><img src="assets/basic-scatter-1.png" width="686" /> <img src="assets/xy-binning-1.png" width="686" height="60%" /> <img src="assets/xy-lines-1.png" width="686" height="60%" /> <small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/directory-of-visualizations.html" class="uri">https://serialmentor.com/dataviz/directory-of-visualizations.html</a> </small></p>
+</section>
+<section id="visualizar-datos-geoespaciales" class="slide level2">
+<h2>Visualizar datos geoespaciales</h2>
+<p><img src="assets/geospatial-1.png" width="686" /></p>
+<p><small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/directory-of-visualizations.html" class="uri">https://serialmentor.com/dataviz/directory-of-visualizations.html</a> </small></p>
+</section>
+<section id="visualizar-incertidumbre" class="slide level2">
+<h2>Visualizar Incertidumbre</h2>
+<p><img src="assets/errorbars-1.png" width="686" height="60%" /><img src="assets/confidence-dists-1.png" width="686" height="60%" /><img src="assets/confidence-bands-1.png" width="686" height="60%" /></p>
+<p><small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/directory-of-visualizations.html" class="uri">https://serialmentor.com/dataviz/directory-of-visualizations.html</a> </small></p>
+</section>
+<section id="gráficos-de-sector-circular-pie-charts" class="slide level2">
+<h2>Gráficos de sector circular (“pie charts”)</h2>
+<p>En general, no son recomendables, a menos que se tengan pocos valores, y una tabla es más simple</p>
+<table style="border: none;">
+<tr>
+<td style="vertical-align: top;">
+<img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-19-1.png" width="768" />
+</td>
+<td style="vertical-align: top;">
+<table>
+<caption>Especies de pingüinos</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Especie</th>
+<th style="text-align: right;">Cantidad</th>
+<th style="text-align: right;">Porcentaje</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Gentoo</td>
+<td style="text-align: right;">119</td>
+<td style="text-align: right;">35.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chinstrap</td>
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">20.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">146</td>
+<td style="text-align: right;">43.8</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+</section>
+<section id="el-cuarteto-de-anscombe" class="slide level2">
+<h2>El “Cuarteto de Anscombe”</h2>
+<div class="fragment fade-left" data-fragment="1">
+<table>
+<caption>Grupo #1</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x1</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">11.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">5.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">y1</td>
+<td style="text-align: right;">8.04</td>
+<td style="text-align: right;">6.95</td>
+<td style="text-align: right;">7.58</td>
+<td style="text-align: right;">8.81</td>
+<td style="text-align: right;">8.33</td>
+<td style="text-align: right;">9.96</td>
+<td style="text-align: right;">7.24</td>
+<td style="text-align: right;">4.26</td>
+<td style="text-align: right;">10.84</td>
+<td style="text-align: right;">4.82</td>
+<td style="text-align: right;">5.68</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-left" data-fragment="2">
+<table>
+<caption>Grupo #2</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x2</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">11.00</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">5.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">y2</td>
+<td style="text-align: right;">9.14</td>
+<td style="text-align: right;">8.14</td>
+<td style="text-align: right;">8.74</td>
+<td style="text-align: right;">8.77</td>
+<td style="text-align: right;">9.26</td>
+<td style="text-align: right;">8.1</td>
+<td style="text-align: right;">6.13</td>
+<td style="text-align: right;">3.1</td>
+<td style="text-align: right;">9.13</td>
+<td style="text-align: right;">7.26</td>
+<td style="text-align: right;">4.74</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-left" data-fragment="3">
+<table>
+<caption>Grupo #3</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x3</td>
+<td style="text-align: right;">10.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">13.00</td>
+<td style="text-align: right;">9.00</td>
+<td style="text-align: right;">11.00</td>
+<td style="text-align: right;">14.00</td>
+<td style="text-align: right;">6.00</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">7.00</td>
+<td style="text-align: right;">5.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">y3</td>
+<td style="text-align: right;">7.46</td>
+<td style="text-align: right;">6.77</td>
+<td style="text-align: right;">12.74</td>
+<td style="text-align: right;">7.11</td>
+<td style="text-align: right;">7.81</td>
+<td style="text-align: right;">8.84</td>
+<td style="text-align: right;">6.08</td>
+<td style="text-align: right;">5.39</td>
+<td style="text-align: right;">8.15</td>
+<td style="text-align: right;">6.42</td>
+<td style="text-align: right;">5.73</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment fade-left" data-fragment="4">
+<table>
+<caption>Grupo #4</caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">x4</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">19.0</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+<td style="text-align: right;">8.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">y4</td>
+<td style="text-align: right;">6.58</td>
+<td style="text-align: right;">5.76</td>
+<td style="text-align: right;">7.71</td>
+<td style="text-align: right;">8.84</td>
+<td style="text-align: right;">8.47</td>
+<td style="text-align: right;">7.04</td>
+<td style="text-align: right;">5.25</td>
+<td style="text-align: right;">12.5</td>
+<td style="text-align: right;">5.56</td>
+<td style="text-align: right;">7.91</td>
+<td style="text-align: right;">6.89</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="las-tendencias-parecen-ser-iguales" class="slide level2">
+<h2>Las tendencias parecen ser iguales</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-26-1.png" width="768" height="80%" /></p>
+</section>
+<section id="pero-en-realidad-no-lo-son" class="slide level2">
+<h2>Pero en realidad, no lo son</h2>
+<p>Mostrar los datos es importante</p>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-27-1.png" width="768" height="80%" /></p>
+</section>
+<section id="no-abusemos-de-la-regresión-lineal" class="slide level2">
+<h2>No abusemos de la regresión lineal</h2>
+<p><img data-src="assets/xckd-1725-linear_regression.png" alt="xkcd - Linear Regression, comic 1725" /></p>
+<p><em>Fuente</em>: <a href="https://xkcd.com/1725/" class="uri">https://xkcd.com/1725/</a> (“Linear regression”)</p>
+</section>
+<section id="y-tengamos-cuidado-con-correlaciones-sin-sentido" class="slide level2">
+<h2>Y tengamos cuidado con correlaciones sin sentido</h2>
+<p><img data-src="assets/spurious-correlations-sociodoct-spacelaunch.svg" /></p>
+<p><em>Fuente</em>: <a href="http://tylervigen.com/spurious-correlations" class="uri">http://tylervigen.com/spurious-correlations</a></p>
+</section></section>
+<section>
+<section id="ejemplos-de-visualizaciones" class="title-slide slide level1">
+<h1>Ejemplos de visualizaciones</h1>
+<p>Algunas buenas, otras …</p>
+</section>
+<section id="lo-bueno-lo-malo-lo-feo-y-lo-errado" class="slide level2">
+<h2>Lo bueno, lo malo, lo feo y lo errado</h2>
+<p><img src="assets/ugly-bad-wrong-examples-1.png" width="576" /></p>
+<p><small> <em>Fuente</em>: <a href="https://serialmentor.com/dataviz/introduction.html" class="uri">https://serialmentor.com/dataviz/introduction.html</a> </small></p>
+</section>
+<section id="un-pie-chart-ininteligible" class="slide level2">
+<h2>Un “pie chart” ininteligible 👎</h2>
+<p><img data-src="assets/Worst-Data-Visualizations-07.jpg" alt="Un “pie chart” ininteligible" /></p>
+<p><small> Fuente: <a href="http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/" class="uri">http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/</a> </small></p>
+</section>
+<section id="y-otro-más-que-no-suma-100" class="slide level2">
+<h2>Y otro más que no suma 100% 👎</h2>
+<p><img data-src="assets/Worst-Data-Visualizations-09.jpg" alt="Mas de 100%" /></p>
+<p><small> Fuente: <a href="http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/" class="uri">http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/</a> </small></p>
+</section>
+<section id="usar-3d-en-forma-innecesaria" class="slide level2">
+<h2>Usar 3D en forma innecesaria 👎</h2>
+<p><img src="assets/ch-01-chartjunk-life-expectancy.png" width="512" /></p>
+<p><em>Fuente</em>: <a href="https://socviz.co/" class="uri">https://socviz.co/</a></p>
+</section>
+<section id="interconección-por-cables-submarinos-tyler-morgan-wall-tylermorganwall" class="slide level2">
+<h2>Interconección por cables submarinos 👍 (Tyler Morgan-Wall, <span class="citation" data-cites="tylermorganwall">@tylermorganwall</span>)</h2>
+<p><small> <a href="https://twitter.com/tylermorganwall/status/1440669533157556227?s=20" class="uri">https://twitter.com/tylermorganwall/status/1440669533157556227?s=20</a> </small></p>
+<video data-autoplay src="assets/tyler-cable-viz.mp4" height="500">
+</video>
+</section>
+<section id="uso-de-terrenos-cédric-scherer-cedscherer" class="slide level2">
+<h2>Uso de terrenos 👍 (Cédric Scherer, <span class="citation" data-cites="CedScherer">@CedScherer</span>)</h2>
+<p><small> <a href="https://twitter.com/CedScherer/status/1432815220456665091?s=20" class="uri">https://twitter.com/CedScherer/status/1432815220456665091?s=20</a> </small></p>
+<p><img src="assets/cedric-land-use.jpeg" width="622" /></p>
+</section>
+<section id="pista-de-mario-kart-cédric-scherer-cedscherer" class="slide level2">
+<h2>Pista de Mario Kart 👍 (Cédric Scherer, <span class="citation" data-cites="CedScherer">@CedScherer</span>)</h2>
+<p><small> <a href="https://twitter.com/CedScherer/status/1398677194596044803?s=20" class="uri">https://twitter.com/CedScherer/status/1398677194596044803?s=20</a> </small></p>
+<video data-autoplay src="assets/cedric-making-of-mario-chart.mp4" height="500">
+</video>
+</section>
+<section id="mapa-del-perú-researchremora" class="slide level2">
+<h2>Mapa del Perú 👍 (<span class="citation" data-cites="researchremora">@researchremora</span>)</h2>
+<p><small> <a href="https://twitter.com/researchremora/status/1453364770204180495?s=20" class="uri">https://twitter.com/researchremora/status/1453364770204180495?s=20</a> </small></p>
+<p><img src="assets/flotsam-peru-map.jpeg" width="454" /></p>
+</section>
+<section id="densidad-poblacional-researchremora" class="slide level2">
+<h2>Densidad poblacional 👍 (<span class="citation" data-cites="researchremora">@researchremora</span>)</h2>
+<p><small> <a href="https://twitter.com/researchremora/status/1450912331555299331?s=20" class="uri">https://twitter.com/researchremora/status/1450912331555299331?s=20</a> </small></p>
+<p><img src="assets/flotsam-peru-popdensity.jpeg" width="2048" /></p>
+</section>
+<section id="evolución-de-casos-covid-19-en-brasil" class="slide level2">
+<h2>Evolución de casos COVID-19 en Brasil 👍</h2>
+<p><img data-src="assets/covid19-brasil-animation.gif" alt="Evolución de casos COVID-19 en Brasil" /></p>
+<p><small> <em>Fuente</em>: <a href="https://twitter.com/ArthurWelle/status/1284636341297393665" class="uri">https://twitter.com/ArthurWelle/status/1284636341297393665</a> </small></p>
+</section>
+<section id="casos-covid-19-en-américa-del-sur" class="slide level2">
+<h2>Casos COVID-19 en América del Sur 👍</h2>
+<p><img src="assets/covid-cummulative-confirmed-cases-southamerica.png" width="1700" height="50%" /></p>
+<p><em>Fuente</em>: <a href="https://ourworldindata.org/coronavirus" class="uri">https://ourworldindata.org/coronavirus</a></p>
+</section>
+<section id="trayectoria-de-casos-y-fallecimientos-en-perú" class="slide level2">
+<h2>Trayectoria de Casos y Fallecimientos en Perú 👍</h2>
+<p><img src="assets/covid-peru-cases-deaths-7dayrollingavg.png" width="1700" height="50%" /></p>
+<p><em>Fuente</em>: <a href="https://ourworldindata.org/coronavirus" class="uri">https://ourworldindata.org/coronavirus</a></p>
+</section>
+<section id="el-cambio-en-casos-en-las-últimas-dos-semanas" class="slide level2">
+<h2>El cambio en casos en las últimas dos semanas 👍</h2>
+<p><img src="assets/covid-cases-biweekly-change-world.png" width="1700" height="50%" /></p>
+<p><em>Fuente</em>: <a href="https://ourworldindata.org/coronavirus" class="uri">https://ourworldindata.org/coronavirus</a></p>
+</section>
+<section id="vacunación-covid-19-por-continente" class="slide level2">
+<h2>Vacunación COVID-19 por continente 👍</h2>
+<p><img src="assets/covid-vaccines-share-by-continent.png" width="1700" height="50%" /></p>
+</section>
+<section id="casos-positivos-covid-19-owid" class="slide level2">
+<h2>Casos positivos COVID-19 (OWID)</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-38-1.png" width="768" /></p>
+</section>
+<section id="mejorando-la-visualizacion" class="slide level2">
+<h2>Mejorando la visualizacion</h2>
+<ul>
+<li>Seleccionar algunos países de interés</li>
+<li>Contar dias que tuvieron el caso 100 en adelante</li>
+<li>Usar casos por millón de habitantes</li>
+</ul>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-39-1.png" width="100%" /></p>
+</section>
+<section id="mejorando-la-visualización" class="slide level2">
+<h2>Mejorando la visualización</h2>
+<ul>
+<li>Etiquetando mejor los componentes</li>
+<li>Usar un promedio móvil de 14 días</li>
+</ul>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-40-1.png" width="100%" /></p>
+</section>
+<section id="donaciones-covid-19-mef" class="slide level2">
+<h2>Donaciones (COVID-19, MEF)</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-41-1.png" width="1440" /></p>
+</section>
+<section id="ejecución-presupuestal-covid-19-mef" class="slide level2">
+<h2>Ejecución presupuestal (COVID-19, MEF)</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-42-1.png" width="1440" /></p>
+</section>
+<section id="veamos-en-mas-detalle-algunas-regiones" class="slide level2">
+<h2>Veamos en mas detalle algunas Regiones</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-43-1.png" width="1440" /></p>
+</section>
+<section id="exploremos-el-caso-de-san-martín" class="slide level2">
+<h2>Exploremos el caso de San Martín</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-44-1.png" width="1344" /></p>
+</section>
+<section id="equipo-de-protección-personal-covid-19" class="slide level2">
+<h2>Equipo de protección personal COVID-19</h2>
+<p><img src="upeu-webinar-dataviz-2021_files/figure-revealjs/unnamed-chunk-45-1.png" width="1152" /></p>
+</section></section>
+<section>
+<section id="para-finalizar" class="title-slide slide level1">
+<h1>Para finalizar</h1>
+
+</section>
+<section id="resumen" class="slide level2">
+<h2>Resumen</h2>
+<ul>
+<li><strong>Datos</strong>: es la base de todo, conseguirlos no siempre es fácil, y hay que tener cuidado con qué fuentes se usan, y revisarlos por calidad, consistencia, etc.</li>
+<li><strong>Visualizar los datos</strong>: es crítico para poder entender el problema que tratamos de resolver, y para decidir si podemos o no hacerlo con la información a mano.</li>
+<li>Hay que tener siempre presente lo que se quiere comunicar, y a que nivel de detalle.</li>
+<li>La visualización no debería tener elementos que no contribuyen al mensaje.</li>
+<li>Usen buenas herramientas para obtener buenos resultados.</li>
+</ul>
+</section>
+<section id="libros-tutoriales-y-misc." class="slide level2">
+<h2>Libros, tutoriales y misc.</h2>
+<ul>
+<li><a href="https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375989#.XYlLQOZKiPQ">Data Organization in Spreadsheets</a>, K. W. Broman y K. H. Woo, <em>The American Statistician</em>.</li>
+<li><a href="https://serialmentor.com/dataviz/">Fundamentals of Data Visualization</a>, C. O. Wilke</li>
+<li><a href="https://rkabacoff.github.io/datavis/">Data Visualization with R</a>, R. Kabacoff</li>
+<li><a href="https://socviz.co/">Data Visualization - A practical introduction</a>, K. Healy</li>
+<li><a href="https://datavizcatalogue.com/">The Data Visualization Catalogue</a></li>
+<li><a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a>: Datos y ejemplos de visualizaciones</li>
+<li><a href="https://github.com/cienciadedatos/datos-de-miercoles">Datos de Miércoles</a>: Datos y ejemplos de visualizaciones del grupo de R en español</li>
+<li><a href="https://informationisbeautiful.net/visualizations/dataviz-books/">Dataviz Books Everyone Should Read</a></li>
+</ul>
+</section>
+<section id="para-aprender-r" class="slide level2">
+<h2>Para aprender R</h2>
+<ul>
+<li><a href="https://www.r-project.org/doc/bib/R-books.html">Libros sobre R</a></li>
+<li><a href="https://github.com/qinwf">Awesome R</a></li>
+<li><a href="https://github.com/uhub/awesome-r">“awesome-r <span class="citation" data-cites="github">@github</span>”</a>: Repositorios con código y paquetes para R.</li>
+<li>La comunidad de <a href="https://www.rfordatasci.com/">R for Data Science</a></li>
+<li><span class="citation" data-cites="RStudio">[Education @RStudio]</span>(<a href="https://education.rstudio.com/" class="uri">https://education.rstudio.com/</a>)</li>
+<li><a href="https://journal.r-project.org/">The R Journal</a></li>
+<li><a href="https://www.coursera.org/specializations/data-science-foundations-r">Data Science Foundations with R</a></li>
+<li><a href="https://r4ds.had.co.nz">R for Data Science (R4DS)</a>, G. Grolemund y H. Wickham
+<ul>
+<li><a href="https://es.r4ds.hadley.nz/">Versión en Español</a></li>
+</ul></li>
+<li><a href="http://www.r-tutor.com/">An R Introduction to Statistics</a></li>
+</ul>
+</section>
+<section id="para-aprender-python-y-julia" class="slide level2">
+<h2>Para aprender Python y Julia</h2>
+<ul>
+<li><a href="https://wiki.python.org/moin/BeginnersGuide">Beginner’s Guide to Python</a></li>
+<li>Cursos de Python (y otros) en: <a href="https://www.freecodecamp.org/learn/" class="uri">https://www.freecodecamp.org/learn/</a></li>
+<li><a href="https://www.coursera.org/specializations/python">Python for Everybody</a></li>
+<li><a href="https://julialang.org/learning/">Julia - Learning Resources</a></li>
+<li><a href="https://www.coursera.org/learn/julia-programming">Julia Scientific Programming</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li>URL de esta presentación:
+<ul>
+<li><a href="https://castagnetto.site/talks/upeu/upeu-webinar-dataviz-2021.html" class="uri">https://castagnetto.site/talks/upeu/upeu-webinar-dataviz-2021.html</a></li>
+</ul></li>
+<li>Código, datos y gráficos de esta presentación:
+<ul>
+<li><a href="https://github.com/jmcastagnetto/jmc_talks/tree/master/20211124-webinar-dataviz/" class="uri">https://github.com/jmcastagnetto/jmc_talks/tree/master/20211124-webinar-dataviz/</a></li>
+</ul></li>
+<li>Contacto:
+<ul>
+<li>Jesus M. Castagnetto</li>
+<li>Twitter: <a href="https://twitter.com/jmcastagnetto"><span class="citation" data-cites="jmcastagnetto">@jmcastagnetto</span></a></li>
+<li>Github: <a href="https://github.com/jmcastagnetto" class="uri">https://github.com/jmcastagnetto</a></li>
+<li>Email: <a href="mailto:jesus@castagnetto.com" class="email">jesus@castagnetto.com</a></li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="upeu-webinar-dataviz-2021_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="upeu-webinar-dataviz-2021_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+        // Display a presentation progress bar
+        progress: true,
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+        // Enable the slide overview mode
+        overview: true,
+        // Vertical centering of slides
+        center: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
+        // Turns fragments on and off globally
+        fragments: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition speed
+        transitionSpeed: 'default', // default/fast/slow
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        menu: {
+          numbers: true,
+          custom: false,
+          themes: false,
+          transitions: false
+        },
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'upeu-webinar-dataviz-2021_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>

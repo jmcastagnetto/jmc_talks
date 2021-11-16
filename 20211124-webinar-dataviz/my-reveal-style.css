@@ -1,0 +1,113 @@
+div.my-header {
+  background-color: peru;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 30px;
+  width: 100%;
+  padding-top: 5px;
+  padding-right: 60px;
+  text-align: right;
+  font-family: Inconsolata, Courier, fixed;
+  font-size: 14pt;
+  font-weight: bold;
+  color: white;
+}
+
+.reveal h1.title {
+  padding-top: 1.5em;
+  color: white;
+}
+
+.reveal h1.subtitle {
+  font-size: 1.5em !important;
+  font-variant: small-caps;
+  color: lightgrey;
+}
+
+.reveal h2.author {
+  padding-top: 1.5em;
+  font-size: 1.2em;
+  color: white;
+}
+
+.reveal h3.date {
+  padding-top: 3em;
+  font-size: 1em;
+  font-family: Inconsolata, Courier, monospace;
+  color: white;
+}
+
+.reveal section img {
+  border: 0px;
+}
+
+
+.reveal blockquote {
+    font-family: Georgia, serif;
+    font-style: italic;
+    margin: 0.5em;
+    padding: 0.4em;
+    width: 90%;
+    line-height: 1.5;
+    text-align: center;
+    /*position: relative;*/
+}
+
+.reveal blockquote:before {
+    display: block;
+    padding-left: 10px;
+    content: "\201C";
+    font-size: 3em;
+    position: absolute;
+    left: -20px;
+    top: -20px;
+}
+
+.reveal blockquote cite {
+    font-size: 1em;
+    font-style: normal;
+    font-variant: small-caps;
+    display: block;
+    margin-top: 5px;
+}
+
+/*
+reveal blockquote cite:before {
+    content: "\2014 \2009";
+}
+*/
+
+/*
+.reveal blockquote {
+  margin: 20px 0;
+}
+
+.reveal blockquote:before {
+    position: absolute;
+    font-size: 6em;
+    line-height: 1;
+    top: 0;
+    left: 0;
+    content: "\201C";
+}
+
+.reveal blockquote:after {
+    position: absolute;
+    float:right;
+    font-size:6em;
+    line-height: 1;
+    right:0;
+    bottom:-0.5em;
+    content: "\201D";
+}
+
+.reveal blockquote footer {
+    padding: 0 2em 0 0;
+    text-align:right;
+}
+
+.reveal blockquote cite:before {
+    content: "\2013";
+}
+*/

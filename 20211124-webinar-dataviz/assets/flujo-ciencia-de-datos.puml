@@ -1,0 +1,63 @@
+@startuml
+
+title Flujo de análisis en Ciencia de Datos
+caption 2020-07-14, Jesus M. Castagnetto
+
+skinparam packageStyle rectangle
+skinparam packageBackgrounColor Cyan
+
+scale 800 height
+scale 1600 width
+
+left to right direction
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/download>
+!include <tupadr3/font-awesome/database>
+!include <tupadr3/font-awesome/server>
+!include <tupadr3/font-awesome/cog>
+!include <tupadr3/font-awesome/cubes>
+!include <tupadr3/font-awesome/eye>
+!include <tupadr3/font-awesome/wrench>
+!include <tupadr3/font-awesome/bar_chart>
+!include <tupadr3/font-awesome/area_chart>
+!include <tupadr3/font-awesome/line_chart>
+!include <tupadr3/font-awesome/file>
+!include <tupadr3/font-awesome/mobile_phone>
+
+rectangle Fuentes {
+	FA_DATABASE(f1, Datos) #Yellow
+	FA_SERVER(f2, Logs) #Wheat
+	FA_MOBILE_PHONE(f3, Actividad) #LightCyan
+}
+
+rectangle Recopilar {
+	FA_DOWNLOAD(Importar, Importar)
+	FA_COG(Limpiar, Limpiar)
+	f1 --> Importar
+	f2 --> Importar
+	f3 --> Importar
+	Importar -right-> Limpiar
+}
+
+rectangle Explorar {
+	FA_CUBES(Modelar, Modelar)
+	FA_EYE(Visualizar, Visualizar)
+	FA_WRENCH(Transformar, Transformar)
+	Transformar -right-> Visualizar
+	Visualizar -down-> Modelar
+	Modelar --> Transformar
+}
+
+rectangle Mostrar {
+	FA_AREA_CHART(c2, Análisis)
+	FA_BAR_CHART(c1, Comparar)
+	FA_LINE_CHART(c3, Tendencia)
+	FA_FILE(c4, Reporte)
+}
+
+Limpiar --> Transformar
+Explorar --> Mostrar
+
+
+@enduml
