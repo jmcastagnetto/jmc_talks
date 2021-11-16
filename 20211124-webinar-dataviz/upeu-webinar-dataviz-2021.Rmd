@@ -683,7 +683,7 @@ knitr::include_graphics("assets/covid-cummulative-confirmed-cases-southamerica.p
 
 *Fuente*: https://ourworldindata.org/coronavirus
 
-## Trayectoria de Casos y Fallecimientos en Perú 👍
+## Casos y Fallecimientos en Perú 👍
 
 ```{r out.height="50%"}
 knitr::include_graphics("assets/covid-peru-cases-deaths-7dayrollingavg.png")
@@ -986,7 +986,7 @@ p2 <- ggplot(sm_cases, aes(x = date, y = change)) +
 
 ## Equipo de protección personal COVID-19
 
-```{r fig.width=12, fig.height=10}
+```{r fig.width=12, fig.height=8}
 epp_df <- dist_epp %>% 
   select(fecha, tipo, cantidad) %>% 
   mutate(
