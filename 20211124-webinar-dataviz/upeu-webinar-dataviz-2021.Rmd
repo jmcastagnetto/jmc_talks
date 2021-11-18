@@ -352,7 +352,7 @@ knitr::include_graphics("assets/proportions-multi-1.png")
 </small>
 
 
-## Visualizar relacionex "x-y"
+## Visualizar relaciones "x-y"
 
 ```{r}
 knitr::include_graphics("assets/basic-scatter-1.png")
