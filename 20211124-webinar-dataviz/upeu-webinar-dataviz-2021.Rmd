@@ -1,7 +1,7 @@
 ---
 title: 'Ciencia de Datos y Visualización'
 author: "Jesús M. Castagnetto, Ph.D."
-date:  "2020-11-24, UPEU"
+date:  "2021-11-24, UPEU"
 output: 
   revealjs::revealjs_presentation:
     template: webinar-template.html
@@ -104,7 +104,7 @@ theme_set(theme_classic(14))
 	- 150 millones de sensores, generando datos 40 millones de veces por segundo.
 	- 600 millones de colisiones por segundo
 		- Se filtra ~99.99995% ⇒ se graban solo 1,000 colisiones de interés por segundo
-	- El volumen anual es de 25 petabytes antes de replicación, y 200 petabytes después de replicar.
+	- El volumen anual es de 25 petabytes antes de replicación y 200 petabytes después de replicar.
 	- Sin filtrar se excedería los **500 exabytes por día**.
 
 - *Como referencia*:
@@ -234,7 +234,7 @@ ggplot(penguins,
 
 ## Un modelo de clasificación
 
-- Separamos aleatoriamente a los datos: 75% para entrenar el modelo, y 25% para probar el modelo.
+- Separamos aleatoriamente a los datos: 75% para entrenar el modelo y 25% para probar el modelo.
 - Usamos el algoritmo Random Forest, con validación cruzada repetida, por 3 veces
 - Usaremos el modelo siguiente:
   - Especie --> f(long. pico, ancho pico, long. aleta, peso)
@@ -394,7 +394,7 @@ knitr::include_graphics("assets/confidence-bands-1.png")
 
 ## Gráficos de sector circular ("pie charts")
 
-En general, no son recomendables, a menos que se tengan pocos valores, y una tabla es más simple
+En general, no son recomendables, a menos que se tengan pocos valores y una tabla es más simple
 
 
 <table style="border: none;">
@@ -731,7 +731,7 @@ ggplot(df1, aes(x = date,
 ## Mejorando la visualizacion
 
 - Seleccionar algunos países de interés
-- Contar dias que tuvieron el caso 100 en adelante
+- Contar días que tuvieron el caso 100 en adelante
 - Usar casos por millón de habitantes
 
 ```{r out.width="100%", fig.width=12}
@@ -1039,11 +1039,11 @@ ggplot(epp_df,
 
 ## Resumen
 
-- **Datos**: es la base de todo, conseguirlos no siempre es fácil, y hay que tener cuidado con qué fuentes se usan, y revisarlos por calidad, consistencia, etc.
-- **Visualizar los datos**: es crítico para poder entender el problema que tratamos de resolver, y para decidir si podemos o no hacerlo con la información a mano.
-- Hay que tener siempre presente lo que se quiere comunicar, y a que nivel de detalle.
+- **Datos**: es la base de todo, conseguirlos no siempre es fácil y hay que tener cuidado con qué fuentes se usan y revisarlos por calidad, consistencia, etc.
+- **Visualizar los datos**: es crítico para poder entender el problema que tratamos de resolver y para decidir si podemos o no solucionarlo con la información disponible.
+- Hay que tener siempre presente lo que se quiere comunicar y a qué nivel de detalle.
 - La visualización no debería tener elementos que no contribuyen al mensaje.
-- Usen buenas herramientas para obtener buenos resultados.
+- Usen buenas herramientas para obtener buenos resultados. Busquen reproducibilidad y replicabilidad: usen código.
 
 ## Libros, tutoriales y misc.
 
