@@ -414,7 +414,7 @@ ggplot(sum_df, aes(x = "", y = n, fill = species)) +
   geom_col(width = 1, show.legend = FALSE) +
   geom_text(aes(label = label),
             position = position_stack(vjust = 0.5),
-            color = "white", size = 6) +
+            color = "black", fontface = "bold", size = 6) +
   scale_color_brewer(palette = "Dark2", type = "qual") +
   coord_polar("y", start = 0) +
   labs(
@@ -840,12 +840,12 @@ reg <- ejec_presup %>%
       "CALLAO",
       dpto
     ),
-    ym = glue::glue("{ano_eje}-{mes}")
+    ym = glue::glue("{año_eje}-{mes}")
   )
 
 reg_sum <- reg %>%
   filter(mes_eje != 0) %>%
-  group_by(dpto, ano_eje, mes) %>%
+  group_by(dpto, año_eje, mes) %>%
   summarise(
     certificado = sum(monto_certificado, na.rm = T),
     comprometido = sum(monto_comprometido, na.rm = T),
@@ -882,7 +882,7 @@ ggplot(reg_sum,
   ) +
   my_theme1() +
   facet_nested_wrap(
-    ~ dpto + ano_eje, 
+    ~ dpto + año_eje, 
     nrow = 5
   )
 ```
@@ -913,7 +913,7 @@ ggplot(reg_sum2,
   ) +
   my_theme1() +
   facet_nested_wrap(
-    ~ dpto + ano_eje, 
+    ~ dpto + año_eje, 
     nrow = 2
   )
 
@@ -944,7 +944,7 @@ p1 <- ggplot(reg_sum3,
   ) +
   my_theme1() +
   facet_nested_wrap(
-    ~ dpto + ano_eje, 
+    ~ dpto + año_eje, 
     nrow = 1
   )
 
@@ -1094,3 +1094,6 @@ ggplot(epp_df,
   - Twitter: <a href="https://twitter.com/jmcastagnetto">@jmcastagnetto</a>
   - Github: https://github.com/jmcastagnetto
   - Email: jesus@castagnetto.com
+  - Ejemplos del #30diasdegraficos del 2020:
+      - Hilo en Twitter: https://twitter.com/jmcastagnetto/status/1270738663958368260
+      - Repositorio con el código: https://github.com/jmcastagnetto/mis-30-dias-de-graficos

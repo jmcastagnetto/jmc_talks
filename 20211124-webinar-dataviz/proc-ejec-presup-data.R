@@ -37,7 +37,8 @@ ejec_presup <- bind_rows(ejec2020_raw, ejec2021_raw) %>%
     mes = month(tmp_mes, label = TRUE, abbr = TRUE,
                 locale = "es_PE.utf8")
   ) %>%
-  select(-tmp_mes)
+  select(-tmp_mes) %>%
+  rename(año_eje = ano_eje)
 
 saveRDS(
   ejec_presup,
