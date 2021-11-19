@@ -302,7 +302,7 @@ ggplot(penguins_test,
 knitr::include_graphics("assets/common-aesthetics-1.png")
 ```
 
-*Fuente*: https://serialmentor.com/dataviz/aesthetic-mapping.html
+*Fuente*: https://clauswilke.com/dataviz/aesthetic-mapping.html
 
 ## Objetivos de la visualización de datos
 
@@ -322,7 +322,7 @@ knitr::include_graphics("assets/amounts_multi-1.png")
 ```
 
 <small>
-*Fuente*: https://serialmentor.com/dataviz/directory-of-visualizations.html
+*Fuente*: https://clauswilke.com/dataviz/directory-of-visualizations.html
 </small>
 
 ## Visualizar distribuciones
@@ -336,7 +336,7 @@ knitr::include_graphics("assets/multiple-distributions-1.png")
 ```
 
 <small>
-*Fuente*: https://serialmentor.com/dataviz/directory-of-visualizations.html
+*Fuente*: https://clauswilke.com/dataviz/directory-of-visualizations.html
 </small>
 
 ## Visualizar proporciones
@@ -348,7 +348,7 @@ knitr::include_graphics("assets/proportions-multi-1.png")
 ```
 
 <small>
-*Fuente*: https://serialmentor.com/dataviz/directory-of-visualizations.html
+*Fuente*: https://clauswilke.com/dataviz/directory-of-visualizations.html
 </small>
 
 
@@ -364,7 +364,7 @@ knitr::include_graphics("assets/xy-binning-1.png")
 knitr::include_graphics("assets/xy-lines-1.png")
 ```
 <small>
-*Fuente*: https://serialmentor.com/dataviz/directory-of-visualizations.html
+*Fuente*: https://clauswilke.com/dataviz/directory-of-visualizations.html
 </small>
 
 
@@ -375,7 +375,7 @@ knitr::include_graphics("assets/geospatial-1.png")
 ```
 
 <small>
-*Fuente*: https://serialmentor.com/dataviz/directory-of-visualizations.html
+*Fuente*: https://clauswilke.com/dataviz/directory-of-visualizations.html
 </small>
 
 
@@ -388,7 +388,7 @@ knitr::include_graphics("assets/confidence-bands-1.png")
 ```
 
 <small>
-*Fuente*: https://serialmentor.com/dataviz/directory-of-visualizations.html
+*Fuente*: https://clauswilke.com/dataviz/directory-of-visualizations.html
 </small>
 
 
@@ -585,7 +585,7 @@ knitr::include_graphics("assets/ugly-bad-wrong-examples-1.png")
 ```
 
 <small>
-*Fuente*: https://serialmentor.com/dataviz/introduction.html
+*Fuente*: https://clauswilke.com/dataviz/introduction.html
 </small>
 
 
@@ -1048,7 +1048,7 @@ ggplot(epp_df,
 ## Libros, tutoriales y misc.
 
 - [Data Organization in Spreadsheets](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375989#.XYlLQOZKiPQ), K. W. Broman y K. H. Woo, *The American Statistician*.
-- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/), C. O. Wilke
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/), C. O. Wilke
 - [Data Visualization with R](https://rkabacoff.github.io/datavis/), R. Kabacoff
 - [Data Visualization - A practical introduction](https://socviz.co/), K. Healy
 - [The Data Visualization Catalogue](https://datavizcatalogue.com/)
@@ -1095,5 +1095,5 @@ ggplot(epp_df,
   - Github: https://github.com/jmcastagnetto
   - Email: jesus@castagnetto.com
   - Ejemplos del #30diasdegraficos del 2020:
-      - Hilo en Twitter: https://twitter.com/jmcastagnetto/status/1270738663958368260
+      - Hilo en Twitter: https://twitter.com/jmcastagnetto/status/1261020232786870272
       - Repositorio con el código: https://github.com/jmcastagnetto/mis-30-dias-de-graficos
