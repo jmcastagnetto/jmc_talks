@@ -1,6 +1,6 @@
 ## Presentación en línea:
 
-- URL de la presentación: https://castagnetto.site/talks/upeu/webinar-dataviz-2021.html
+- URL de la presentación: https://castagnetto.site/talks/upeu/upeu-webinar-dataviz-2021.html
 
 ## Imágenes de visualizaciones tomadas de:
 
