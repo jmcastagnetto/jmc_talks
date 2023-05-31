@@ -1,0 +1,41 @@
+/* from https://codepen.io/chris22smith/pen/oQWavL */
+
+.quote {
+  display: inline-block;
+  margin: 1em;
+  overflow: hidden;
+}
+
+.quote blockquote {
+    border: solid 2px #ffffff;
+    font-size: 1.6em;
+    display: inline-block;
+    margin: 0;
+    padding: 1em;
+    position: relative;
+    &:before {
+      background-color: #ffffff;
+      bottom: -10%;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: -10%;
+      transform: rotate(-15deg) skew(5deg);
+    }
+}
+
+.quote blockquote cite {
+      display: block;
+      font-style: italic;
+      text-align: right;
+      &:before {
+        content: "-- ";
+      }
+    }
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}

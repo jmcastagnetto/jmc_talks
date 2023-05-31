@@ -1,0 +1,520 @@
+---
+title: "Visualización en la Ciencia de Datos"
+subtitle: "Importancia y Ejemplos"
+author: "Jesus M. Castagnetto, Ph.D."
+date: "2023-06-01"
+format:
+  coeos-revealjs:
+    embed-resources: true
+    self-contained: true
+    logo: assets/upch-logo-2023.svg
+    navigation-mode: vertical
+    preload-iframes: true
+    code-line-numbers: true
+    code-overflow: scroll
+    language: es
+    keep-md: true
+    slide-number: h.v
+    transition: convex
+    title-slide-attributes: 
+      data-background-image: "assets/animated-bg-globe-links.gif"
+    footer: "Visualización en la Ciencia de Datos // Jesus M. Castagnetto, Ph.D. // Licencia: [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/)"
+    css: my-style.css
+    include-in-header:
+        - text: |
+            <link rel = "shortcut icon" href = "assets/upch-logo-2023.svg" />
+execute: 
+  eval: true
+  echo: false
+  warning: false
+  error: false
+---
+
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(palmerpenguins)
+library(ggforce)
+library(tidyquant)
+library(ggpmisc)
+library(ggrepel)
+library(latex2exp)
+
+```
+
+# Datos
+
+## Usamos datos para
+
+::: {.incremental}
+
+- Responder preguntas concretas
+- Explorar relaciones entre variables
+- Descubrir patrones
+- Automatizar procesos
+- Validar observaciones y experimentos
+- Contar una historia
+- Tomar decisiones
+
+:::
+
+## Ciencia de datos
+
+- Un campo interdisciplinario que trata de extraer conocimiento o ideas nuevas de los datos.
+- Los datos pueden
+  - Provenir de múltiples fuentes
+  - Tener diversos niveles de calidad
+  - Ser completos o parciales
+  - Estar estructurados o no estructurados, etc.
+
+## Qué se necesita conocer
+
+::: {.incremental}
+
+- Manipulación, limpieza y transformación de datos
+- Bases de datos estructuradas y no estructuradas
+- Estadística y matemáticas
+- Aprendizaje de máquina (Machine Learning)
+- Programación de software
+  - Especialmente en lenguajes de análisis de datos (R, Python, Julia, etc.)
+- Visualización de datos y comunicación
+
+:::
+
+## Flujo de trabajo en Ciencia de Datos
+
+![Trabajo en Ciencias de Datos](assets/componentes-ciencia-de-datos.drawio.svg)
+
+## Ciencia de datos: Modelamiento
+
+
+::: {.quote}
+
+<blockquote>
+All models are wrong, but some are useful
+<cite>George Box</cite>
+</blockquote>
+
+:::
+
+[*Todos los modelos son incorrectos, pero algunos son útiles*]
+
+## Los Pingüinos de Palmer
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+- Tres especies: Adelie, Chinstrap y Gentoo
+- Variables:
+  - Longitud y ancho del pico (en mm)
+  - Longitud de la aleta (en mm)
+  - Peso corporal (en gr)
+  - Sexo (female, male)
+  - También: Isla y año del registro
+
+:::
+
+::: {.column width="30%"}
+
+![*Fuente*: https://allisonhorst.github.io/palmerpenguins/](assets/logo-palmerpenguin.png)
+
+:::
+
+::::
+
+## Distribución por especie y sexo
+
+```{r}
+penguins_df <- penguins[complete.cases(penguins), ]
+ggplot(penguins_df, 
+       aes(y = species, group = sex, fill = sex)) +
+  geom_bar(position = "stack") +
+  labs(
+    title = "Distribución de Pingüinos por especie y sexo",
+    y = "Especies",
+    x = "Frecuencia",
+    fill = "Sexo"
+  ) +
+  theme_classic(16)
+```
+
+
+
+## Las tres especies de pingüinos
+
+```{r}
+ggplot(penguins, 
+       aes(x = bill_length_mm, 
+           y = flipper_length_mm)) +
+  geom_point(aes(color = species, 
+                 shape = species), size = 3) +
+  scale_color_brewer(type = "qual", 
+                     palette = "Dark2") +
+  labs(
+    title = "Distribución de las especies de pingüinos",
+    x = "Largo del pico (mm)",
+    y = "Largo de la aleta (mm)",
+    color = "Especie:",
+    shape = "Especie:"
+  ) +
+  theme_classic(16)
+```
+
+## Un modelo de clasificación
+
+- Separamos aleatoriamente a los datos: 75% para entrenar el modelo y 25% para probar el modelo.
+- Usamos el algoritmo "Random Forest", con validación cruzada repetida, por 3 veces
+- Usaremos el modelo siguiente:
+  - *Especie* = f(long. pico, ancho pico, long. aleta, peso)
+
+## Código del modelo de clasificación (en R)
+
+```{r}
+#| eval: false
+#| echo: true
+set.seed(13579)
+df <- penguins %>% select(species, 3:6)
+# entrenamos con 75% de datos, probamos con 25%
+index <- createDataPartition(df$species, p=0.75, list=FALSE)
+penguins_train <- df[index,]
+penguins_test <- df[-index,]
+# hacemos validación cruzada, repetida, por 3 veces
+ctrl <- trainControl(method="repeatedcv", repeats = 3)
+model_rf <- train(x = penguins_train[, 2:5], y = penguins_train$species,
+                  method = "rf", preProcess = c("center", "scale"),
+                  trControl = ctrl, tuneLength = 20)
+# aplicamos el modelo a los datos de prueba
+penguins_test$pred <- predict(model_rf, penguins_test[, 2:5])
+```
+
+## Evaluación visual del modelo
+
+```{r}
+load("datos/modelo-rf-penguins.Rdata")
+ggplot(penguins_test, 
+       aes(x = bill_length_mm, 
+           y = flipper_length_mm)) +
+  geom_point(aes(color = species, 
+                 shape = species), 
+             size = 3, show.legend = FALSE) +
+  geom_mark_hull(aes(color = pred, label = species), 
+                 show.legend = FALSE) +
+  scale_color_brewer(type = "qual", 
+                     palette = "Dark2") +
+  labs(
+    title = "Modelo de clasificación de las especies de pingüinos",
+    subtitle = "Usando el grupo de datos de prueba (25% de los datos originales)",
+    x = "Largo del pico (mm)",
+    y = "Largo de la aleta (mm)",
+    color = "Especie:",
+    shape = "Especie:"
+  ) +
+  theme_classic(16)
+
+```
+
+# Visualización
+
+
+## A tomar en cuenta al visualizar datos
+
+::: {.quote}
+
+<blockquote>
+Graphical excellence consists of complex ideas communicated with
+clarity, precision and efficiency.
+<cite>Edward Tufte</cite>
+</blockquote>
+
+:::
+
+## Características de una visualización
+
+- Mapear datos a los aspectos de un gráfico: Posición, forma, tamaño, color, grosor y tipo de líneas
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/common-aesthetics-1.png)
+
+## Objetivos de la visualización de datos
+
+::: {.incremental}
+
+- Hacer comparaciones
+- Mostrar una (posible) causalidad
+- Mostrar múltiples piezas de información
+- Integrar gráficos y anotaciones para una mejor comprensión
+- Educar, informar, hacer cambiar de opinión, etc.
+
+:::
+
+## Graficar cantidades
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/amounts-plots.png){height=5in}
+
+## Graficar distribuciones
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/distributions-plots.png){height=5in}
+
+## Graficar proporciones
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/proportions-plots.png){height=5in}
+
+## Graficar relaciones "x-y"
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/xy-plots.png){height=5in}
+
+## Graficar datos geoespaciales
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/geospatial-1.png)
+
+## Graficar Incertidumbre
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/error-plots.png){height=5in}
+
+## Gráficos de sector circular ("pie charts")
+
+En general, no son recomendables, a menos que se tengan pocos valores y,
+aún en ese caso, una tabla es mucho mas simple
+
+:::: {.columns}
+
+::: {.column width=40%}
+
+```{r}
+#| fig-width: 4
+#| fig-height: 4
+sum_df <- penguins_df %>% 
+  group_by(species) %>% 
+  tally() %>% 
+  arrange(desc(species)) %>% 
+  mutate(
+    prop = 100 * n / sum(n),
+    label = paste0(species, "\n", n, sprintf(" (%.1f%%)", prop))
+  )
+
+ggplot(sum_df, aes(x = "", y = n, fill = species)) +
+  geom_col(width = 1, show.legend = FALSE) +
+  geom_text(aes(label = label),
+            position = position_stack(vjust = 0.5),
+            color = "black", size = 6) +
+  scale_color_brewer(palette = "Dark2", type = "qual") +
+  coord_polar("y", start = 0) +
+  labs(
+    x = "",
+    y = "",
+    title = "Especies de pingüinos"
+  ) +
+  theme_void(16)
+```
+
+:::
+
+::: {.column width=60%}
+
+```{r}
+knitr::kable(
+  sum_df %>% select(-label) %>% arrange(desc(species)),
+  col.names = c("Especie", "Cantidad", "Porcentaje"),
+  digits = 1, 
+  caption = "Especies de pingüinos"
+)
+```
+
+
+:::
+
+::::
+
+## El "Cuarteto de Anscombe" {.smaller}
+
+```{r}
+library(datasets)
+data(anscombe)
+a1 <- anscombe[,c(1,5)] %>% as_tibble()
+a2 <- anscombe[,c(2,6)] %>% as_tibble()
+a3 <- anscombe[,c(3,7)] %>% as_tibble()
+a4 <- anscombe[,c(4,8)] %>% as_tibble()
+table_df <- anscombe[, c(1,5,2,6,3,7,4,8)]
+knitr::kable(
+  table_df,
+  row.names = TRUE
+)
+```
+
+## Las tendencias parecen ser iguales
+
+```{r}
+#| fig-height: 6
+fm_aes <- aes(label =  paste(stat(eq.label), "*\", con: \"*",
+                             stat(adj.rr.label), "*\"\"",
+                             sep = ""))
+p1 <- ggplot(a1, aes(x = x1, y = y1)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #1")
+
+p2 <- ggplot(a2, aes(x = x2, y = y2)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #2") 
+
+p3 <- ggplot(a3, aes(x = x3, y = y3)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #3") 
+
+p4 <- ggplot(a4, aes(x = x4, y = y4)) +
+  stat_smooth(method = "lm", se = FALSE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #4") 
+
+(p1 + p2) / (p3 + p4)
+```
+
+## Pero en realidad, no lo son
+
+```{r}
+#| fig-height: 6
+p1 <- ggplot(a1, aes(x = x1, y = y1)) +
+  geom_point(size = 2, color = "red") +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #1") 
+
+p2 <- ggplot(a2, aes(x = x2, y = y2)) +
+  geom_point(size = 2, color = "red") +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #2")
+
+p3 <- ggplot(a3, aes(x = x3, y = y3)) +
+  geom_point(size = 2, color = "red") +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #3") 
+
+p4 <- ggplot(a4, aes(x = x4, y = y4)) +
+  geom_point(size = 2, color = "red") +
+  stat_smooth(method = "lm", se = TRUE, formula = y ~ x) +
+  stat_poly_eq(fm_aes,
+               formula = y ~ x, parse = TRUE,
+               label.x = "left", label.y = "top") +
+  ggtitle("Grupo #4") 
+
+(p1 + p2) / (p3 + p4)
+```
+
+## No abusemos de la regresión lineal
+
+![*Fuente*: xkcd - "Linear Regression"](assets/xckd-1725-linear_regression.png)
+
+## Y cuidado con correlaciones sin sentido
+
+![*Fuente*: http://tylervigen.com/spurious-correlations](assets/spurious-correlations-sociodoct-spacelaunch.svg)
+
+# Ejemplos de visualizaciones
+
+Algunas buenas, otras ...
+
+## Lo bueno, lo malo, lo feo y lo errado
+
+![*Fuente*: "Fundamentals of Data Visualization", Claus Wilke](assets/ugly-bad-wrong-examples-1.png)
+
+## Un "pie chart" ininteligible 👎
+
+![*Fuente*:
+http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/](assets/Worst-Data-Visualizations-07.jpg)
+
+## Y otro más que no suma 100% 👎
+
+![*Fuente*:
+http://livingqlikview.com/the-9-worst-data-visualizations-ever-created/](assets/Worst-Data-Visualizations-09.jpg)
+
+## Usar 3D en forma innecesaria 👎
+
+![*Fuente*: "Data Visualization", Kieran Healy](assets/ch-01-chartjunk-life-expectancy.png)
+
+## Interconección por cables submarinos 👍
+
+
+<video data-autoplay style="margin-left: auto; margin-right: auto; display: block" src="assets/tyler-cable-viz.mp4" height="500"></video>
+
+<small>
+*Fuente*: [Tyler Morgan-Wall, @tylermorganwall](https://twitter.com/tylermorganwall/status/1440669533157556227?s=20 
+)
+</small>
+
+## Pista de Mario Kart 👍
+
+<video data-autoplay style="margin-left: auto; margin-right: auto; display: block" src="assets/cedric-making-of-mario-chart.mp4" height="500"></video>
+
+<small>
+*Fuente*: [Cédric Scherer, @CedScherer](https://twitter.com/CedScherer/status/1398677194596044803?s=20)
+</small>
+
+
+## Mapa de relieve del Perú 👍
+
+![*Fuente*: https://twitter.com/researchremora/status/1453364770204180495?s=20, (Terence T., @researchremora en Twitter e Instagram)](assets/flotsam-peru-map.jpeg)
+
+## Densidad poblacional en Perú 👍
+
+![*Fuente*:https://twitter.com/researchremora/status/1450912331555299331?s=20, (Terence T., @researchremora en Twitter e Instagram)](assets/flotsam-peru-popdensity.jpeg){height=5in}
+
+
+## Evolución de casos COVID-19 en Brasil 👍
+
+![*Fuente*: https://twitter.com/ArthurWelle/status/1284636341297393665,
+(Arthur Welle, @ArthurWelle)](assets/covid19-brasil-animation.gif){height=5in}
+
+## Avance de vacunación COVID-19 👍
+
+![*Fuente*: Our World in Data (OWID), https://ourworldindata.org/covid-vaccinations](assets/covid19-vaccination-status.svg){height=5in}
+
+## Efecto de la sequía en Kenya 👍
+
+![*Fuente*: HDX,
+https://data.humdata.org/visualization/horn-of-africa-humanitarian-operations/?c=KEN](assets/2023-05-22_kenya-africa-drought-humdata.png)
+
+## Personas desplazadas por la guerra en Ucrania 👍
+
+![*Fuente*: HDX, https://data.humdata.org/visualization/ukraine-humanitarian-operations/?layer=idp_estimates](assets/2023-05-22-ukraine-idp-estimates-humdata.png){height=4.5in}
+
+# Para finalizar
+
+## Resumen {.smaller}
+
+::: {.incremental}
+
+- **Datos**: son la base de todo, conseguirlos no siempre es fácil y hay que tener cuidado con qué fuentes se usan y revisarlos por calidad, consistencia, etc.
+  - El manejo, proceso, limpieza y estandarización de datos es crucial para el análisis, visualización, modelamiento, etc. que querramos hacer.
+- **Visualizar los datos**: es crítico para poder entender el problema que tratamos de resolver y para decidir si podemos o no solucionarlo con la información disponible.
+  - Hay que tener siempre presente lo que se quiere comunicar y a qué nivel de detalle.
+  - La visualización no debería tener elementos que no contribuyen al mensaje.
+- Usen buenas herramientas para obtener buenos resultados. Busquen **reproducibilidad** y **replicabilidad** tanto en el proceso de datos, como en la vizualización, análisis y modelamiento: aprendan a usar código para esas actividades y a documentar adecuadamente.
+
+:::
+
+##
+
+- URL de esta presentación: https://castagnetto.site/talks/202305-webinar-dataviz-upch/index.html
+- Código, datos y gráficos de esta presentación: https://github.com/jmcastagnetto/jmc_talks/tree/master/202305-webinar-dataviz-upch/
+- Contacto: Jesus M. Castagnetto, Ph.D.
+  - Twitter: https://twitter.com/jmcastagnetto
+  - Mastodon: https://mastodon.org/@jmcastagnetto
+  - Github: https://github.com/jmcastagnetto
