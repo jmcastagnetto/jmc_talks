@@ -512,7 +512,7 @@ https://data.humdata.org/visualization/horn-of-africa-humanitarian-operations/?c
 
 ##
 
-- URL de esta presentación: https://castagnetto.site/talks/202305-webinar-dataviz-upch/index.html
+- URL de esta presentación: https://castagnetto.site/talks/20230601-webinar-dataviz-upch/index.html
 - Código, datos y gráficos de esta presentación: https://github.com/jmcastagnetto/jmc_talks/tree/master/20230601-webinar-dataviz-upch/
 - Contacto: Jesus M. Castagnetto, Ph.D.
   - Twitter: https://twitter.com/jmcastagnetto
