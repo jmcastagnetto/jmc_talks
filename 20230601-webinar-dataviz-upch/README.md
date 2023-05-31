@@ -1,3 +1,3 @@
 ## Presentación en línea:
 
-- URL de la presentación: https://castagnetto.site/talks/202305-webinar-dataviz-upch/index.html
+- URL de la presentación: https://castagnetto.site/talks/20230601-webinar-dataviz-upch/index.html
